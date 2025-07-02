@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+const [videogames, setVideogames] = useState([]);
 const VideogamesList = () => {
     return (
         <div>

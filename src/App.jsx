@@ -3,6 +3,7 @@ import { GameShopProvider } from "./context/GameContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Homepage from "./pages/HomePage";
 import Ps5Page from "./pages/ps5Page";
+import NotFoundPage from "./pages/notFoundPage";
 export default function App() {
   return (
     <GameShopProvider>
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/videogames/:id" element={<DetailGame />} /> 
           </Route> */}
           <Route path="/videogames/ps5" element={<Ps5Page />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </GameShopProvider>

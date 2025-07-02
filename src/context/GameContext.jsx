@@ -3,7 +3,6 @@ import { createContext, useState } from "react";
 const GameContext = createContext();
 
 const GameShopProvider = ({ children }) => {
-  const [travels, setTravels] = useState();
   return <GameContext.Provider value="">{children}</GameContext.Provider>;
 };
 

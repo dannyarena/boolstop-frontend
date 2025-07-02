@@ -1,13 +1,18 @@
-// import Header from "./components/Header";
-// import Footer from "./components/Footer";
-// import Main from "./components/Main";
+import { BrowserRouter } from "react-router";
+import { GameShopProvider } from "./context/GameContext";
 
 export default function App() {
   return (
-    <>
-      {/* <Header />
-      <Main />
-      <Footer /> */}
-    </>
+    <GameShopProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/videogames" element={<VideoGamesList />} /> 
+          <Route path="/videogames/:id" element={<DetailGame />} /> 
+          </Route> */}
+        </Routes>
+      </BrowserRouter>
+    </GameShopProvider>
   );
 }

@@ -1,5 +1,6 @@
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GameShopProvider } from "./context/GameContext";
+import VideogamesList from "./pages/VideogamesList";
 
 export default function App() {
   return (
@@ -8,9 +9,9 @@ export default function App() {
         <Routes>
           {/* <Route element={<DefaultLayout />}>
           <Route path="/" element={<Homepage />} />
-          <Route path="/videogames" element={<VideoGamesList />} /> 
           <Route path="/videogames/:id" element={<DetailGame />} /> 
           </Route> */}
+          <Route path="/videogames" element={<VideogamesList />} /> 
         </Routes>
       </BrowserRouter>
     </GameShopProvider>

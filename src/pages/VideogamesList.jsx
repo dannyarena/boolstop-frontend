@@ -16,7 +16,11 @@ useEffect(() => {
     return (
         <div>
             <h1>Tutti i giochi</h1>
-            {/* { lista dei giochi...} */}
+            <ul>
+                {videogames.map((game) => (
+                    <li key={game.id}>{game.name}</li>
+                ))}
+            </ul>
         </div>
     );
 };

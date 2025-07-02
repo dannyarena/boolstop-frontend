@@ -31,7 +31,7 @@ const VideogamesList = () => {
         {showList ? (
           <div className="row g-3">
             {videogames.map((game) => (
-              <div className="cardGame col-3" key={game.id}>
+              <div className="cardGame col-sm-6 col-md-4" key={game.id}>
                 <img
                   className="img w-100"
                   src={`../cover-game/${game.image}`}

@@ -16,6 +16,7 @@ export default function App() {
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<Homepage />} />
             <Route path="/search" element={<SearchResultsPage />} />
+            <Route path="/videogames/ps5" element={<Ps5Page />} />
             {/* <Route path="/videogames" element={<VideoGamesList />} />
             <Route path="/videogames/:id" element={<DetailGame />} /> */}
           </Route>

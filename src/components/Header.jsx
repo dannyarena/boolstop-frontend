@@ -17,8 +17,8 @@ export default function Header() {
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div className="container">
-          <NavLink className="navbar-brand" to="/">
-            BoolStop
+          <NavLink className="navbar-brand fw-bold fs-2 pb-2" to="/">
+            Bool<span className="stop">Stop</span>
           </NavLink>
           <button
             className="navbar-toggler"

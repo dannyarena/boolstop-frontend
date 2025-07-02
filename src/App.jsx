@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { GameShopProvider } from "./context/GameContext";
 import DefaultLayout from "./layouts/DefaultLayout";
-
+import Homepage from "./pages/HomePage";
 export default function App() {
   return (
     <GameShopProvider>

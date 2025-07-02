@@ -1,0 +1,25 @@
+.div-platforms {
+  height: 100px;
+  width: 100px;
+  margin: 2rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-platforms:hover {
+  transform: scale(1.2);
+}
+
+.link-platforms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link-platforms i {
+  font-size: 3rem;
+  color: black;
+}

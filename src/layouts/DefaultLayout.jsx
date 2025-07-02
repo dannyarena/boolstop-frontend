@@ -1,18 +1,18 @@
-import { Outlet } from react-router-dom;
+import { Outlet } from "react-router";
+import { NavLink } from "react-router";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-export default function DefaultLayout () {
-    return (
-        <>
-            <header>
+export default function DefaultLayout() {
+  return (
+    <>
+      <Header />
 
-            </header>
-            
-            <main>
-                <Outlet />
-            </main>
-            <footer>
+      <main>
+        <Outlet />
+      </main>
 
-            </footer>
-        </>
-    )
+      <Footer />
+    </>
+  );
 }

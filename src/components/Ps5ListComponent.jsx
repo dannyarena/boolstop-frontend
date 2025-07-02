@@ -8,7 +8,9 @@ export default function Ps5ListComponent() {
 
   const fecthPs5Videogames = () => {
     axios.get(apiUrl).then((res) => {
-      setVideogames(res.data);
+      console.log(res);
+
+      setVideogames(res.data.results);
     });
   };
 

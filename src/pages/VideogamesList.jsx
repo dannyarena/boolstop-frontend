@@ -18,12 +18,16 @@ const VideogamesList = () => {
     <div>
       <div className="container">
         <h1 className="allListTitle">SCOPRI TUTTI I NOSTRI GIOCHI</h1>
-        <button
-          className="btn btn-primary mb-3"
-          onClick={() => setShowList((prev) => !prev)}
-        >
-          {showList ? "Vista Card" : "Vista Lista"}
-        </button>
+        <div className="bottonContainer d-flex justify-content-center">
+          {" "}
+          <button
+            className="btn btn-warning mb-3 text-uppercase fw-bold"
+            onClick={() => setShowList((prev) => !prev)}
+          >
+            {showList ? "Vista Card" : "Vista Lista"}
+          </button>
+        </div>
+
         {showList ? (
           <ul className="listGame">
             {videogames.map((game) => (

@@ -1,5 +1,7 @@
 import { Outlet } from "react-router";
 import { NavLink } from "react-router";
+import { Outlet } from "react-router";
+import { NavLink } from "react-router";
 
 export default function DefaultLayout() {
   return (
@@ -44,7 +46,11 @@ export default function DefaultLayout() {
               </ul>
 
               <form className="d-flex">
-                <input type="text" className="form-control me-2" placeholder="Cerca gioco..." />
+                <input
+                  type="text"
+                  className="form-control me-2"
+                  placeholder="Cerca gioco..."
+                />
                 <button className="btn btn-primary" type="submit">
                   Cerca
                 </button>

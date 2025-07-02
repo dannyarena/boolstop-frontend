@@ -1,6 +1,18 @@
-import { NavLink } from "react-router";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router";
 
 export default function Header() {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const params = new URLSearchParams({ name: search });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/search?${params.toString()}`);
+    }
+  };
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -41,8 +53,14 @@ export default function Header() {
               </li>
             </ul>
 
-            <form className="d-flex">
-              <input type="text" className="form-control me-2" placeholder="Cerca gioco..." />
+            <form className="d-flex" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                className="form-control me-2"
+                placeholder="Cerca gioco..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
               <button className="btn btn-primary" type="submit">
                 Cerca
               </button>

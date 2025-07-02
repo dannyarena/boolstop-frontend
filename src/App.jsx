@@ -3,6 +3,8 @@ import { GameShopProvider } from "./context/GameContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Homepage from "./pages/HomePage";
 import Ps5Page from "./pages/ps5Page";
+import SearchResultsPage from "./pages/SearchResultsPage";
+
 export default function App() {
   return (
     <GameShopProvider>
@@ -10,6 +12,7 @@ export default function App() {
         <Routes>
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<Homepage />} />
+            <Route path="/search" element={<SearchResultsPage />} />
             {/* <Route path="/videogames" element={<VideoGamesList />} />
             <Route path="/videogames/:id" element={<DetailGame />} /> */}
           </Route>

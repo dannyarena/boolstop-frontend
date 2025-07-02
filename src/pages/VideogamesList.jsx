@@ -29,20 +29,6 @@ const VideogamesList = () => {
         </div>
 
         {showList ? (
-          <ul className="listGame">
-            {videogames.map((game) => (
-              <li
-                className="d-flex justify-content-between align-items-center mb-1"
-                key={game.id}
-              >
-                {game.name}{" "}
-                <a href={`/videogames/${game.id}`} className="btn btn-warning">
-                  Scopri
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
           <div className="row g-3">
             {videogames.map((game) => (
               <div className="cardGame col-3" key={game.id}>
@@ -68,6 +54,20 @@ const VideogamesList = () => {
               </div>
             ))}
           </div>
+        ) : (
+          <ul className="listGame">
+            {videogames.map((game) => (
+              <li
+                className="d-flex justify-content-between align-items-center mb-1"
+                key={game.id}
+              >
+                {game.name}{" "}
+                <a href={`/videogames/${game.id}`} className="btn btn-warning">
+                  Scopri
+                </a>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>

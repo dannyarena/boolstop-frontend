@@ -1,6 +1,6 @@
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { GameShopProvider } from "./context/GameContext";
-
+import Ps5Page from "./pages/ps5Page";
 export default function App() {
   return (
     <GameShopProvider>
@@ -11,6 +11,7 @@ export default function App() {
           <Route path="/videogames" element={<VideoGamesList />} /> 
           <Route path="/videogames/:id" element={<DetailGame />} /> 
           </Route> */}
+          <Route path="/videogames/ps5" element={<Ps5Page />} />
         </Routes>
       </BrowserRouter>
     </GameShopProvider>

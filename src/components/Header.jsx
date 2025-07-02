@@ -61,7 +61,7 @@ export default function Header() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-warning" type="submit">
                 Cerca
               </button>
             </form>

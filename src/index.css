@@ -11,16 +11,26 @@
 .jumbotron {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   min-height: 400px;
   margin-top: 50px;
-
+  color: white;
   border-radius: 50px;
   box-shadow: 0px 0px 50px rgb(0, 0, 0);
   overflow: hidden;
   background-image: url("../public/img/ddrfu5v-8497eeac-ad03-4abf-957a-63159599231e.jpg");
   background-position: center;
   background-size: cover;
-  opacity: 0.9;
+  opacity: 0.89;
+}
+.linkJumbo {
+  font-size: 50px;
+  font-weight: bolder;
+}
+
+.linkJumbo:hover {
+  scale: 1.5;
 }
 
 body {
@@ -60,7 +70,6 @@ body {
 .logobool {
   text-align: center;
   color: white;
-  padding-top: 150px;
   font-size: 5rem;
   opacity: 1;
   font-weight: bolder;

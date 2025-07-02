@@ -5,7 +5,7 @@ export default function DefaultLayout() {
   return (
     <>
       <header>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
           <div className="container">
             <NavLink className="navbar-brand" to="/">
               BoolStop

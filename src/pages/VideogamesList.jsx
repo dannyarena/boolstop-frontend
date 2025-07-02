@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const VideogamesList = () => {
   const [videogames, setVideogames] = useState([]);
+  const [showList, setShowList] = useState(true);
   useEffect(() => {
     fetch("http://localhost:3000/videogames")
       .then((response) => response.json())
@@ -15,42 +16,57 @@ const VideogamesList = () => {
 
   return (
     <div>
-      <h1>Tutti i giochi</h1>
-      <ul>
-        {videogames.map((game) => (
-          <li key={game.id}>{game.name}</li>
-        ))}
-      </ul>
       <div className="container">
-        <div className="row g-3">
-          {videogames.map((game) => (
-            <div className="cardGame col-3" key={game.id}>
-              <img
-                className="img w-100"
-                src={`../cover-game/${game.image}`}
-                alt={game.name}
-              />
-
-              <div className="infoCard">
-                <h5 className="card-title">{game.name}</h5>
-                <p className="card-text">{game.description}</p>
-                <p className="card-text">{game.genre}</p>
-                <p className="card-text">
-                  <small className="text-muted">
-                    Piattaforme: {game.platforms}
-                  </small>
-                </p>
-                <a href={`/videogames/${game.id}`} className="btn btn-primary">
-                  Dettagli
+        <h1 className="allListTitle">SCOPRI TUTTI I NOSTRI GIOCHI</h1>
+        <button
+          className="btn btn-primary mb-3"
+          onClick={() => setShowList((prev) => !prev)}
+        >
+          {showList ? "Vista Card" : "Vista Lista"}
+        </button>
+        {showList ? (
+          <ul className="listGame">
+            {videogames.map((game) => (
+              <li
+                className="d-flex justify-content-between align-items-center mb-1"
+                key={game.id}
+              >
+                {game.name}{" "}
+                <a href={`/videogames/${game.id}`} className="btn btn-warning">
+                  Scopri
                 </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="row g-3">
+            {videogames.map((game) => (
+              <div className="cardGame col-3" key={game.id}>
+                <img
+                  className="img w-100"
+                  src={`../cover-game/${game.image}`}
+                  alt={game.name}
+                />
+                <div className="infoCard text-center p-3">
+                  <h5 className="card-title">{game.name}</h5>
+                  <p className="card-text">{game.description}</p>
+                  <p className="card-text">{game.genre}</p>
+                  <p className="card-text">
+                    <small className="text">Piattaforma: {game.platform}</small>
+                  </p>
+                  <a
+                    href={`/videogames/${game.id}`}
+                    className="btn btn-warning"
+                  >
+                    Scopri
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
-          0{" "}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 };
-
 export default VideogamesList;

@@ -108,8 +108,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 10px; /* aggiungi questa riga */
-  padding: 0; /* assicurati che non ci sia padding */
+  border-radius: 10px;
+  padding: 0;
   margin: 0;
 }
 
@@ -118,4 +118,36 @@ body {
 }
 .cardGame .infoCard h5 {
   margin-bottom: 10px;
+}
+
+.allListTitle {
+  text-align: center;
+  color: #ffcc00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.47);
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 2.5);
+}
+
+.listGame {
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 2.5);
+  color: #ffcc00;
+  font-size: 1.5rem;
+}
+
+.listGame li:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+  cursor: pointer;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.105);
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }

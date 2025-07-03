@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 const VideogamesList = () => {
   const [videogames, setVideogames] = useState([]);
@@ -24,7 +25,7 @@ const VideogamesList = () => {
             className="btn btn-warning mb-3 text-uppercase fw-bold"
             onClick={() => setShowList((prev) => !prev)}
           >
-            {showList ? "Vista Card" : "Vista Lista"}
+            {showList ? "Vista Lista" : "Vista Card"}
           </button>
         </div>
 
@@ -44,12 +45,12 @@ const VideogamesList = () => {
                   <p className="card-text">
                     <small className="text">Piattaforma: {game.platform}</small>
                   </p>
-                  <a
-                    href={`/videogames/${game.id}`}
+                  <Link
+                    to={`/videogames/${game.id}`}
                     className="btn btn-warning"
                   >
                     Scopri
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -62,9 +63,9 @@ const VideogamesList = () => {
                 key={game.id}
               >
                 {game.name}{" "}
-                <a href={`/videogames/${game.id}`} className="btn btn-warning">
+                <Link to={`/videogames/${game.id}`} className="btn btn-warning">
                   Scopri
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

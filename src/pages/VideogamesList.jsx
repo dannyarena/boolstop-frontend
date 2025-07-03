@@ -114,7 +114,7 @@ const VideogamesList = () => {
             </select>
           </div>
 
-          <div className="col-md-1 bottonContainer d-flex justify-content-center align-items-center">
+          <div className="col-md-3 bottonContainer d-flex justify-content-center align-items-center">
             {" "}
             <button
               className="btn btn-warning mb-3 text-uppercase fw-bold"

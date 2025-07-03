@@ -10,6 +10,11 @@ const CartPage = () => {
         }
     }, []);
 
+     // reduce scorre ogni item del carrello e accumula il risultato
+    const totalPrice = cartItems.reduce((acc, item) => {
+        return acc + item.original_price * item.quantity;
+    }, 0)
+
     return (
         <div className="container py-4">
             <h2>Il tuo carrello</h2>
@@ -29,6 +34,10 @@ const CartPage = () => {
                                     <h5 className="card-title">{item.name}</h5>
                                     <p className="card-text">Prezzo: € {item.original_price}</p>
                                     <p className="card-text">Quantità: {item.quantity}</p>
+                                </div>
+                                <div className="mt-4">
+                                    {/* tofixed 2 serve per mostrare due decimali (es. 123.50) */}
+                                    <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
                                 </div>
                             </div>
                         </div>

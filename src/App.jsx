@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartPage from "./pages/CartPage";
 import { GameShopProvider } from "./context/GameContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Homepage from "./pages/HomePage";
@@ -15,6 +16,7 @@ export default function App() {
         <Routes>
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<Homepage />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/search" element={<SearchResultsPage />} />
             <Route path="/videogames" element={<VideogamesList />} />
             {/* <Route path="/videogames/:id" element={<DetailGame />} /> */}

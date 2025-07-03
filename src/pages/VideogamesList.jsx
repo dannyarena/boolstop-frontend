@@ -35,8 +35,6 @@ const VideogamesList = () => {
   useEffect(() => {
     let filtered = allVideogames;
     if (genreFilter) {
-      console.log("GENRE FILTER:", genreFilter);
-      console.log("GENRES IN GAMES:", allVideogames);
       filtered = filtered.filter((g) => g.genres && g.genres.includes(genreFilter));
     }
     if (platformFilter) {
@@ -53,14 +51,11 @@ const VideogamesList = () => {
     <div>
       <div className="container">
         <h1 className="allListTitle">SCOPRI TUTTI I NOSTRI GIOCHI</h1>
-        <div className="row">
-          <div className="col-md-6">
-            <label htmlFor="genreFilter" className="form-label">
-              Filtra per Genere:
-            </label>
+        <div className="row justify-content-between align-items-center m-4">
+          <div className="col-md-3">
             <select
               id="genreFilter"
-              className="form-select"
+              className="filter form-select bg-warning text-dark border-0 py-2 px-3 fw-bold"
               value={genreFilter}
               onChange={(e) => setGenreFilter(e.target.value)}
             >
@@ -72,33 +67,30 @@ const VideogamesList = () => {
               ))}
             </select>
           </div>
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="platformFilter" className="form-label">
-            Filtra per Piattaforma:
-          </label>
-          <select
-            id="platformFilter"
-            className="form-select"
-            value={platformFilter}
-            onChange={(e) => setPlatformFilter(e.target.value)}
-          >
-            <option value="">Tutte le piattaforme</option>
-            {platforms.map((platform) => (
-              <option key={platform} value={platform}>
-                {platform}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="bottonContainer d-flex justify-content-center">
-          {" "}
-          <button
-            className="btn btn-warning mb-3 text-uppercase fw-bold"
-            onClick={() => setShowList((prev) => !prev)}
-          >
-            {showList ? "Vista Lista" : "Vista Card"}
-          </button>
+          <div className="col-md-3">
+            <select
+              id="platformFilter"
+              className="filter form-select bg-warning text-dark border-0 py-2 px-3 fw-bold"
+              value={platformFilter}
+              onChange={(e) => setPlatformFilter(e.target.value)}
+            >
+              <option value="">Tutte le piattaforme</option>
+              {platforms.map((platform) => (
+                <option key={platform} value={platform}>
+                  {platform}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-md-3 bottonContainer d-flex justify-content-center">
+            {" "}
+            <button
+              className="btn btn-warning mb-3 text-uppercase fw-bold"
+              onClick={() => setShowList((prev) => !prev)}
+            >
+              {showList ? <i class="bi bi-list"></i> : <i class="bi bi-layout-three-columns"></i>}
+            </button>
+          </div>
         </div>
 
         {showList ? (

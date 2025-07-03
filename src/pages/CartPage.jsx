@@ -9,11 +9,31 @@ const CartPage = () => {
             setCartItems(JSON.parse(storedCart));
         }
     }, []);
-
+    }
      // reduce scorre ogni item del carrello e accumula il risultato
     const totalPrice = cartItems.reduce((acc, item) => {
         return acc + item.original_price * item.quantity;
     }, 0)
+
+    const handleIncrease = (id) => {
+        const updatedCart = cartItems.map((item) => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + 1};
+            }
+            return item;
+        });
+
+        const handleDecrease = (id) => {
+        const updatedCart = cartItems.map((item) => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity - 1};
+            }
+            return item;
+        });
+
+        setCartItems(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
 
     return (
         <div className="container py-4">
@@ -34,6 +54,12 @@ const CartPage = () => {
                                     <h5 className="card-title">{item.name}</h5>
                                     <p className="card-text">Prezzo: € {item.original_price}</p>
                                     <p className="card-text">Quantità: {item.quantity}</p>
+                                    <button className="btn btn-sm btn-success me-2"
+                                    onClick={() => handleIncrease(item.id)}> + 
+                                    </button>
+                                    <button className="btn btn-sm btn-success me-2"
+                                    onClick={() => handleDecrease(item.id)}> - 
+                                    </button>
                                 </div>
                                 <div className="mt-4">
                                     {/* tofixed 2 serve per mostrare due decimali (es. 123.50) */}

@@ -37,6 +37,11 @@ const VideogamesDetail = () => {
         } else {
             cart.push(ItemToAdd);
         }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert("Prodotto aggiunto al carrello!")
+
     }
 
     return (
@@ -52,6 +57,10 @@ const VideogamesDetail = () => {
                 <p><strong>Prezzo:</strong>{videogame.original_price}</p>
                 <p><strong>Piattaforma:</strong>{videogame.platform}</p>
                 <p><strong>PEGI:</strong>{videogame.pegi}</p>
+
+                <button className="btn btn-success mt-4"
+                onClick={addToCart}>Aggiungi al carrello
+                </button>
         </div>
     );
 };

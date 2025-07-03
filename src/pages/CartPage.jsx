@@ -9,7 +9,7 @@ const CartPage = () => {
             setCartItems(JSON.parse(storedCart));
         }
     }, []);
-    }
+    
      // reduce scorre ogni item del carrello e accumula il risultato
     const totalPrice = cartItems.reduce((acc, item) => {
         return acc + item.original_price * item.quantity;
@@ -18,19 +18,27 @@ const CartPage = () => {
     const handleIncrease = (id) => {
         const updatedCart = cartItems.map((item) => {
             if (item.id === id) {
-                return { ...item, quantity: item.quantity + 1};
+                return { ...item, quantity: item.quantity + 1 };
             }
             return item;
         });
+        setCartItems(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
 
-        const handleDecrease = (id) => {
+    const handleDecrease = (id) => {
         const updatedCart = cartItems.map((item) => {
             if (item.id === id) {
-                return { ...item, quantity: item.quantity - 1};
+                return { ...item, quantity: item.quantity - 1 };
             }
             return item;
         });
+        setCartItems(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
 
+    const handleRemove = (id) => {
+        const updatedCart = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
@@ -39,11 +47,12 @@ const CartPage = () => {
         <div className="container py-4">
             <h2>Il tuo carrello</h2>
 
-            {cartItems === 0 ? (
+            {cartItems.length === 0 ? (
                 <p>Il carrello è vuoto.</p>
             ) : (
                 <div className="row">
                     {cartItems.map((item) => {
+                        return (
                         <div className="col-md-4 mb-3" key={item.id}>
                             <div className="card">
                                 <img src={`/img/${item.image}`}
@@ -60,6 +69,10 @@ const CartPage = () => {
                                     <button className="btn btn-sm btn-success me-2"
                                     onClick={() => handleDecrease(item.id)}> - 
                                     </button>
+                                    <button className="btn btn-sm btn-danger"
+                                    onClick={() => handleRemove(item.id)}>
+                                        Rimuovi
+                                    </button>
                                 </div>
                                 <div className="mt-4">
                                     {/* tofixed 2 serve per mostrare due decimali (es. 123.50) */}
@@ -67,6 +80,7 @@ const CartPage = () => {
                                 </div>
                             </div>
                         </div>
+                    );
                     })}
                 </div>
             )}

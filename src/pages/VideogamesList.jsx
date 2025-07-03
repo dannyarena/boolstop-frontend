@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import CardGameDamb from "../components/CardGameDamb";
+import ListGameDamb from "../components/ListGameDamb";
 
+// setFunzioni
 const VideogamesList = () => {
   const [videogames, setVideogames] = useState([]);
   const [showList, setShowList] = useState(true);
@@ -32,41 +34,13 @@ const VideogamesList = () => {
         {showList ? (
           <div className="row g-3">
             {videogames.map((game) => (
-              <div className="cardGame col-sm-6 col-md-4" key={game.id}>
-                <img
-                  className="img w-100"
-                  src={`../cover-game/${game.image}`}
-                  alt={game.name}
-                />
-                <div className="infoCard text-center p-3">
-                  <h5 className="card-title">{game.name}</h5>
-                  <p className="card-text">{game.description}</p>
-                  <p className="card-text">{game.genre}</p>
-                  <p className="card-text">
-                    <small className="text">Piattaforma: {game.platform}</small>
-                  </p>
-                  <Link
-                    to={`/videogames/${game.id}`}
-                    className="btn btn-warning"
-                  >
-                    Scopri
-                  </Link>
-                </div>
-              </div>
+              <CardGameDamb key={game.id} game={game} />
             ))}
           </div>
         ) : (
           <ul className="listGame">
             {videogames.map((game) => (
-              <li
-                className="d-flex justify-content-between align-items-center mb-1"
-                key={game.id}
-              >
-                {game.name}{" "}
-                <Link to={`/videogames/${game.id}`} className="btn btn-warning">
-                  Scopri
-                </Link>
-              </li>
+              <ListGameDamb key={game.id} game={game} />
             ))}
           </ul>
         )}

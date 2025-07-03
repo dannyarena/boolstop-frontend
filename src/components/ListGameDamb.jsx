@@ -7,8 +7,8 @@ export default function ListGameDamb({ game }) {
       key={game.id}
     >
       {game.name}{" "}
-      <Link to={`/videogames/${game.id}`} className="btn btn-warning">
-        Scopri
+      <Link to={`/videogames/${game.id}`}>
+        <i className="bi bi-arrow-right-circle text-warning"></i>
       </Link>
     </li>
   );

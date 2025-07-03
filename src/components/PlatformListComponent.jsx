@@ -15,7 +15,6 @@ export default function PlatformListComponent() {
 
   const { platform } = useParams();
 
-  // Carica tutti i videogiochi della piattaforma una sola volta
   useEffect(() => {
     axios.get(`http://localhost:3000/videogames/platform/${platform}`).then((res) => {
       setAllVideogames(res.data.results);
@@ -23,7 +22,6 @@ export default function PlatformListComponent() {
     });
   }, [platform]);
 
-  // Carica i generi una sola volta
   useEffect(() => {
     axios
       .get("http://localhost:3000/genres")
@@ -31,13 +29,11 @@ export default function PlatformListComponent() {
       .catch((err) => console.error("Errore nel caricamento dei generi", err));
   }, []);
 
-  // Applica filtri e ordinamento
   useEffect(() => {
     let filtered = allVideogames;
     if (genreFilter) {
       filtered = filtered.filter((g) => g.genre === genreFilter);
     }
-    // Ordinamento
     if (sortField) {
       filtered = [...filtered].sort((a, b) => {
         let aValue = a[sortField];
@@ -124,58 +120,3 @@ export default function PlatformListComponent() {
     </>
   );
 }
-
-// export default function PlatformListComponent() {
-//   const [showList, setShowList] = useState(true);
-
-//   const [videogames, setVideogames] = useState([]);
-
-//   const { platform } = useParams();
-
-//   const apiUrl = `http://localhost:3000/videogames/platform/${platform}`;
-
-//   const fecthPlatformsVideogames = () => {
-//     axios.get(apiUrl).then((res) => {
-//       console.log(res.data.results);
-
-//       setVideogames(res.data.results);
-//     });
-//   };
-
-//   useEffect(fecthPlatformsVideogames, []);
-
-//   return (
-//     <>
-//       <div>
-//         <div className="container">
-//           <h1 className="allListTitle text-uppercase">
-//             i nostri videogiochi {platform}
-//           </h1>
-//           <div className="bottonContainer d-flex justify-content-center">
-//             {" "}
-//             <button
-//               className="btn btn-warning mb-3 text-uppercase fw-bold"
-//               onClick={() => setShowList((prev) => !prev)}
-//             >
-//               {showList ? "Vista Lista" : "Vista Card"}
-//             </button>
-//           </div>
-
-//           {showList ? (
-//             <div className="row g-3">
-//               {videogames.map((game) => (
-//                 <CardGameDamb key={game.id} game={game} platform={platform} />
-//               ))}
-//             </div>
-//           ) : (
-//             <ul className="listGame">
-//               {videogames.map((game) => (
-//                 <ListGameDamb key={game.id} game={game} />
-//               ))}
-//             </ul>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }

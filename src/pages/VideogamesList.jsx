@@ -13,7 +13,6 @@ const VideogamesList = () => {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
-  // Carica tutti i videogiochi una sola volta all'inizio
   useEffect(() => {
     fetch("http://localhost:3000/videogames")
       .then((response) => response.json())
@@ -26,7 +25,6 @@ const VideogamesList = () => {
       });
   }, []);
 
-  // Carica i generi una sola volta all'inizio
   useEffect(() => {
     fetch("http://localhost:3000/genres")
       .then((res) => res.json())

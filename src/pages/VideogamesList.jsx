@@ -10,6 +10,8 @@ const VideogamesList = () => {
   const [genres, setGenres] = useState([]);
   const [genreFilter, setGenreFilter] = useState("");
   const [platformFilter, setPlatformFilter] = useState("");
+  const [sortField, setSortField] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
 
   // Carica tutti i videogiochi una sola volta all'inizio
   useEffect(() => {
@@ -33,15 +35,22 @@ const VideogamesList = () => {
   }, []);
 
   useEffect(() => {
-    let filtered = allVideogames;
-    if (genreFilter) {
-      filtered = filtered.filter((g) => g.genres && g.genres.includes(genreFilter));
-    }
-    if (platformFilter) {
-      filtered = filtered.filter((g) => g.platform === platformFilter);
-    }
-    setVideogames(filtered);
-  }, [genreFilter, platformFilter, allVideogames]);
+    const params = [];
+    if (genreFilter) params.push(`genre=${encodeURIComponent(genreFilter)}`);
+    if (platformFilter) params.push(`platform=${encodeURIComponent(platformFilter)}`);
+    if (sortField) params.push(`sort=${encodeURIComponent(sortField)}`);
+    if (sortField && sortDirection) params.push(`direction=${encodeURIComponent(sortDirection)}`);
+    const queryString = params.length ? `?${params.join("&")}` : "";
+
+    fetch(`http://localhost:3000/videogames${queryString}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setVideogames(data.results);
+      })
+      .catch((error) => {
+        console.error("Errore durante la ricezione dei dati", error);
+      });
+  }, [genreFilter, platformFilter, sortField, sortDirection]);
 
   const platforms = allVideogames
     .map((g) => g.platform)
@@ -55,7 +64,7 @@ const VideogamesList = () => {
           <div className="col-md-3">
             <select
               id="genreFilter"
-              className="filter form-select bg-warning text-dark border-0 py-2 px-3 fw-bold"
+              className="filter form-select bg-warning text-dark border-0 fw-bold"
               value={genreFilter}
               onChange={(e) => setGenreFilter(e.target.value)}
             >
@@ -67,10 +76,11 @@ const VideogamesList = () => {
               ))}
             </select>
           </div>
+
           <div className="col-md-3">
             <select
               id="platformFilter"
-              className="filter form-select bg-warning text-dark border-0 py-2 px-3 fw-bold"
+              className="filter form-select bg-warning text-dark border-0 fw-bold"
               value={platformFilter}
               onChange={(e) => setPlatformFilter(e.target.value)}
             >
@@ -82,13 +92,39 @@ const VideogamesList = () => {
               ))}
             </select>
           </div>
-          <div className="col-md-3 bottonContainer d-flex justify-content-center">
+
+          <div className="col-md-3">
+            <select
+              id="sortOrder"
+              className="filter form-select bg-warning text-dark border-0 fw-bold"
+              value={`${sortField}-${sortDirection}`}
+              onChange={(e) => {
+                const [field, direction] = e.target.value.split("-");
+                setSortField(field);
+                setSortDirection(direction);
+              }}
+            >
+              <option value="-">Ordina per...</option>
+              <option value="name-asc">Nome A-Z</option>
+              <option value="name-desc">Nome Z-A</option>
+              <option value="releaseDate-asc">Data di rilascio ↑</option>
+              <option value="releaseDate-desc">Data di rilascio ↓</option>
+              <option value="price-asc">Prezzo crescente</option>
+              <option value="price-desc">Prezzo decrescente</option>
+            </select>
+          </div>
+
+          <div className="col-md-1 bottonContainer d-flex justify-content-center align-items-center">
             {" "}
             <button
               className="btn btn-warning mb-3 text-uppercase fw-bold"
               onClick={() => setShowList((prev) => !prev)}
             >
-              {showList ? <i class="bi bi-list"></i> : <i class="bi bi-layout-three-columns"></i>}
+              {showList ? (
+                <i className="bi bi-list"></i>
+              ) : (
+                <i className="bi bi-layout-three-columns"></i>
+              )}
             </button>
           </div>
         </div>

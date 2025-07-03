@@ -19,6 +19,11 @@ export default function App() {
             <Route path="/videogames" element={<VideogamesList />} />
             {/* <Route path="/videogames/:id" element={<DetailGame />} /> */}
             <Route path="/videogames/:platform" element={<PlatformsPage />} />
+            {/* <Route
+              path="/videogames/:platform/:id"
+              element={<PlatformsPage />}
+            /> */}
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

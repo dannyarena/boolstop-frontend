@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-export default function CardGameDamb({ game }) {
+export default function CardGameDamb({ game, platform }) {
   return (
     <div className="cardGame col-sm-6 col-md-4" key={game.id}>
       <img
@@ -15,7 +15,14 @@ export default function CardGameDamb({ game }) {
         <p className="card-text">
           <small className="text">Piattaforma: {game.platform}</small>
         </p>
-        <Link to={`/videogames/${game.id}`} className="btn btn-warning">
+        <Link
+          to={
+            platform
+              ? `/videogames/${platform}/${game.id}`
+              : `/videogames/${game.id}`
+          }
+          className="btn btn-warning"
+        >
           Scopri
         </Link>
       </div>

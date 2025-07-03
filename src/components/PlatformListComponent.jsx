@@ -43,7 +43,7 @@ export default function PlatformListComponent() {
           {showList ? (
             <div className="row g-3">
               {videogames.map((game) => (
-                <CardGameDamb key={game.id} game={game} />
+                <CardGameDamb key={game.id} game={game} platform={platform} />
               ))}
             </div>
           ) : (

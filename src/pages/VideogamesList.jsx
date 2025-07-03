@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
 import CardGameDamb from "../components/CardGameDamb";
+import ListGameDamb from "../components/ListGameDamb";
+
+// setFunzioni
 const VideogamesList = () => {
   const [videogames, setVideogames] = useState([]);
   const [showList, setShowList] = useState(true);
@@ -38,15 +40,7 @@ const VideogamesList = () => {
         ) : (
           <ul className="listGame">
             {videogames.map((game) => (
-              <li
-                className="d-flex justify-content-between align-items-center mb-1"
-                key={game.id}
-              >
-                {game.name}{" "}
-                <Link to={`/videogames/${game.id}`} className="btn btn-warning">
-                  Scopri
-                </Link>
-              </li>
+              <ListGameDamb key={game.id} game={game} />
             ))}
           </ul>
         )}

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GameShopProvider } from "./context/GameContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Homepage from "./pages/HomePage";
-import Ps5Page from "./pages/Ps5Page";
+import PlatformsPage from "./pages/PlatformsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import VideogamesList from "./pages/VideogamesList";
 
@@ -18,7 +18,7 @@ export default function App() {
             <Route path="/search" element={<SearchResultsPage />} />
             <Route path="/videogames" element={<VideogamesList />} />
             {/* <Route path="/videogames/:id" element={<DetailGame />} /> */}
-            <Route path="/videogames/ps5" element={<Ps5Page />} />
+            <Route path="/videogames/:platform" element={<PlatformsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

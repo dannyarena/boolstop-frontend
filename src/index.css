@@ -80,14 +80,14 @@ body {
 }
 
 .cardGame {
-  min-height: 200px;
+  height: 550px;
 
   overflow: hidden;
 }
 
 .cardGame img {
   width: 100%;
-  height: 500px;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
 }

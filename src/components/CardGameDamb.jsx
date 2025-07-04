@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export default function CardGameDamb({ game, platform }) {
   return (
     <div className="cardGame col-sm-6 col-md-4" key={game.id}>
-      <img className="img w-100" src={`../cover-game/${game.image}`} alt={game.name} />
+      <img className="img w-100" src={game.image} alt={game.name} />
       <div className="infoCard text-center p-3">
         <h5 className="card-title">{game.name}</h5>
         <p className="card-text">{game.description}</p>

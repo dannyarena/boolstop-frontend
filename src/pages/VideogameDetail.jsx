@@ -6,6 +6,7 @@ const VideogamesDetail = () => {
   const { slug } = useParams();
   const [videogame, setVideogame] = useState(null);
   const navigate = useNavigate();
+  const [amountInCart, setAmountInCart] = useState(0);
 
   useEffect(() => {
     fetch(`http://localhost:3000/videogames/slug/${slug}`)
@@ -17,8 +18,6 @@ const VideogamesDetail = () => {
         console.error("Errore nella ricezione dei dati", err);
       });
   }, [slug]);
-
-  if (!videogame) return <p>Caricamento...</p>;
 
   const addToCart = () => {
     const ItemToAdd = {
@@ -41,12 +40,21 @@ const VideogamesDetail = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+    const item = cart.find((item) => item.videogame_id === videogame.id);
+    setAmountInCart(item ? item.amount : 0);
   };
 
   const buyNow = () => {
     addToCart();
     navigate("/cart");
   };
+  useEffect(() => {
+    if (videogame) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const item = cart.find((item) => item.videogame_id === videogame.id);
+      setAmountInCart(item ? item.amount : 0);
+    }
+  }, [videogame]);
 
   const dsc = (videogame.original_price * videogame.discount_percentage) / 100;
   const price = (videogame.original_price - dsc).toFixed(2);
@@ -95,14 +103,69 @@ const VideogamesDetail = () => {
           )
         )}
       </p>
+  if (!videogame) return <p>Caricamento...</p>;
+  return (
+    <>
+      <div className="container bg-light bg-gradient text-center py-5 rounded-5 shadow-lg">
+        <h1>{videogame.name}</h1>
+        <img
+          src={`${videogame.image}`}
+          alt={videogame.name}
+          className="img-fluid my-3"
+          style={{ maxWidth: "400px" }}
+        />
+        <h4>{videogame.description}</h4>
+        <p>
+          <strong>Genere: </strong>
+          {videogame.genres}
+        </p>
+        <p>
+          <strong>Prezzo: &euro; </strong>
+          {videogame.original_price}
+        </p>
+        <p>
+          <strong>Piattaforma: </strong>
+          {videogame.platform}
+        </p>
+        <p>
+          <strong>Data di rilascio: </strong>
+          {new Date(videogame.release_date).toLocaleDateString("it-IT")}
+        </p>
+        <p>
+          <strong>PEGI: </strong>
+          {videogame.pegi}
+        </p>
+        <p>
+          {Array.from({ length: 5 }).map((_, i) =>
+            i < Math.round(videogame.rating) ? (
+              <i key={i} className="bi bi-star-fill text-warning fs-3"></i>
+            ) : (
+              <i key={i} className="bi bi-star text-warning fs-3"></i>
+            )
+          )}
+        </p>
 
-      <button className="btn btn-success mt-4" onClick={addToCart}>
-        Aggiungi al carrello
-      </button>
-      <button className="btn btn-warning mt-4" onClick={buyNow}>
-        acquista ora
-      </button>
-    </div>
+        {amountInCart === 0 ? (
+          <button className="btn btn-success mt-4" onClick={() => addToCart()}>
+            Aggiungi al carrello
+          </button>
+        ) : (
+          <div>
+            <button
+              className="btn btn-success mt-4"
+              onClick={() => addToCart()}
+            >
+              Aggiungi al carrello
+            </button>
+            <div>aggiunto al carrello (quantità: {amountInCart})</div>
+          </div>
+        )}
+
+        <button className="btn btn-primary mt-4" onClick={buyNow}>
+          Compra ora
+        </button>
+      </div>
+    </>
   );
 };
 

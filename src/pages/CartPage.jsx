@@ -89,7 +89,7 @@ const CartPage = () => {
             <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
             <button
               className="btn btn-warning"
-              onClick={() => navigate("/checkout")}
+              onClick={() => navigate("/formcheckout")}
               disabled={cartItems.length === 0}
             >
               Procedi all'ordine

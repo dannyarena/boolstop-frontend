@@ -11,6 +11,7 @@ export default function Header() {
     if (search.trim() === "") {
       navigate("/");
     } else if (search.trim()) {
+      const params = new URLSearchParams({ name: search });
       navigate(`/search?${params.toString()}`);
     }
     setSearch("");

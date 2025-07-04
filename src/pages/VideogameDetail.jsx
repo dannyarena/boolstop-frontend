@@ -48,6 +48,9 @@ const VideogamesDetail = () => {
     navigate("/cart");
   };
 
+  const dsc = (videogame.original_price * videogame.discount_percentage) / 100;
+  const price = (videogame.original_price - dsc).toFixed(2);
+
   return (
     <div className="container bg-light bg-gradient text-center py-5 rounded-5 shadow-lg">
       <h1>{videogame.name}</h1>
@@ -62,9 +65,14 @@ const VideogamesDetail = () => {
         <strong>Genere: </strong>
         {videogame.genres}
       </p>
+      <p className="fs-10 text-decoration-line-through">
+        {videogame.original_price} &euro;
+      </p>
       <p>
-        <strong>Prezzo: &euro; </strong>
-        {videogame.original_price}
+        <strong className="fs-5">
+          {price}
+          &euro;
+        </strong>
       </p>
       <p>
         <strong>Piattaforma: </strong>

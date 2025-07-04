@@ -24,7 +24,7 @@ export default function App() {
             <Route path="/videogames" element={<VideogamesList />} />
             {/* <Route path="/videogames/:id" element={<DetailGame />} /> */}
             <Route path="/videogames/:platform" element={<PlatformsPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
+            {/* <Route path="/checkout" element={<CheckoutPage />} /> */}
             {/* <Route
               path="/videogames/:platform/:id"
               element={<PlatformsPage />}

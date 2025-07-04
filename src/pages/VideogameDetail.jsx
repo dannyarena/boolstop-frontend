@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const VideogamesDetail = () => {
   // con slug leggiamo i parametri dinamici della rotta
   const { slug } = useParams();
   const [videogame, setVideogame] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/videogames/slug/${slug}`)
@@ -40,8 +41,11 @@ const VideogamesDetail = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+  };
 
-    alert("Prodotto aggiunto al carrello!");
+  const buyNow = () => {
+    addToCart();
+    navigate("/cart");
   };
 
   return (
@@ -86,6 +90,9 @@ const VideogamesDetail = () => {
 
       <button className="btn btn-success mt-4" onClick={addToCart}>
         Aggiungi al carrello
+      </button>
+      <button className="btn btn-warning mt-4" onClick={buyNow}>
+        acquista ora
       </button>
     </div>
   );

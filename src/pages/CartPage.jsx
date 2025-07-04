@@ -17,9 +17,10 @@ const CartPage = () => {
     return acc + Number(item.price) * item.amount;
   }, 0);
 
-  const handleIncrease = (id) => {
+  // Usa videogame_id come chiave unica per ogni prodotto
+  const handleIncrease = (videogame_id) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === id) {
+      if (item.videogame_id === videogame_id) {
         return { ...item, amount: item.amount + 1 };
       }
       return item;
@@ -28,9 +29,9 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const handleDecrease = (id) => {
+  const handleDecrease = (videogame_id) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === id) {
+      if (item.videogame_id === videogame_id) {
         return { ...item, amount: Math.max(1, Number(item.amount) - 1) };
       }
       return item;
@@ -39,8 +40,10 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const handleRemove = (id) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
+  const handleRemove = (videogame_id) => {
+    const updatedCart = cartItems.filter(
+      (item) => item.videogame_id !== videogame_id
+    );
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -55,28 +58,35 @@ const CartPage = () => {
         <div className="row">
           {cartItems.map((item) => {
             return (
-              <div className="col-md-4 mb-3" key={item.id}>
+              <div className="col-md-4 mb-3" key={item.videogame_id}>
                 <div className="card">
-                  <img src={`${item.image}`} alt={item.name} className="card-img-top" />
+                  <img
+                    src={`${item.image}`}
+                    alt={item.name}
+                    className="card-img-top"
+                  />
                   <div className="card-body">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text">Prezzo: € {item.price}</p>
                     <p className="card-text">Quantità: {item.amount}</p>
                     <button
                       className="btn btn-sm btn-success me-2"
-                      onClick={() => handleIncrease(item.id)}
+                      onClick={() => handleIncrease(item.videogame_id)}
                     >
                       {" "}
                       +
                     </button>
                     <button
                       className="btn btn-sm btn-success me-2"
-                      onClick={() => handleDecrease(item.id)}
+                      onClick={() => handleDecrease(item.videogame_id)}
                     >
                       {" "}
                       -
                     </button>
-                    <button className="btn btn-sm btn-danger" onClick={() => handleRemove(item.id)}>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleRemove(item.videogame_id)}
+                    >
                       Rimuovi
                     </button>
                   </div>

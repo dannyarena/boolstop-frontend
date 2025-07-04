@@ -5,7 +5,6 @@ const VideogamesDetail = () => {
   // con slug leggiamo i parametri dinamici della rotta
   const { slug } = useParams();
   const [videogame, setVideogame] = useState(null);
-  console.log("Slug ricevuto dall'URL;", slug);
 
   useEffect(() => {
     fetch(`http://localhost:3000/videogames/slug/${slug}`)
@@ -44,26 +43,43 @@ const VideogamesDetail = () => {
   };
 
   return (
-    <div className="container py-5">
+    <div className="container bg-light bg-gradient text-center py-5 rounded-5 shadow-lg">
       <h1>{videogame.name}</h1>
       <img
-        src={`/img/${videogame.image}`}
+        src={`${videogame.image}`}
         alt={videogame.name}
         className="img-fluid my-3"
         style={{ maxWidth: "400px" }}
       />
-      <p>{videogame.description}</p>
+      <h4>{videogame.description}</h4>
       <p>
-        <strong>Prezzo:</strong>
+        <strong>Genere: </strong>
+        {videogame.genres}
+      </p>
+      <p>
+        <strong>Prezzo: &euro; </strong>
         {videogame.original_price}
       </p>
       <p>
-        <strong>Piattaforma:</strong>
+        <strong>Piattaforma: </strong>
         {videogame.platform}
       </p>
       <p>
-        <strong>PEGI:</strong>
+        <strong>Data di rilascio: </strong>
+        {new Date(videogame.release_date).toLocaleDateString("it-IT")}
+      </p>
+      <p>
+        <strong>PEGI: </strong>
         {videogame.pegi}
+      </p>
+      <p>
+        {Array.from({ length: 5 }).map((_, i) =>
+          i < Math.round(videogame.rating) ? (
+            <i key={i} className="bi bi-star-fill text-warning fs-3"></i>
+          ) : (
+            <i key={i} className="bi bi-star text-warning fs-3"></i>
+          )
+        )}
       </p>
 
       <button className="btn btn-success mt-4" onClick={addToCart}>

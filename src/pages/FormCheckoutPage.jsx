@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function FormCheckoutPage() {
   const cart = JSON.parse(localStorage.getItem("cart"));
@@ -16,6 +17,7 @@ export default function FormCheckoutPage() {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,8 +31,10 @@ export default function FormCheckoutPage() {
       .post("http://localhost:3000/orders/addOrder", dataToSend)
       .then((res) => console.log(res));
 
-    localStorage.clear();
     setFormData(initialFormData);
+
+    navigate("/orderRecap");
+    localStorage.clear();
   };
 
   const totalPrice = cart.reduce(

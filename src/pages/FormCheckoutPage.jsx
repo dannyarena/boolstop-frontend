@@ -8,9 +8,6 @@ export default function FormCheckoutPage() {
     return { videogame_id: item.videogame_id, amount: item.amount };
   });
 
-  console.log("videogames_", videogames);
-  console.log("carrello checkout;", cart);
-
   const initialFormData = {
     customer_name: "",
     customer_surname: "",
@@ -28,18 +25,27 @@ export default function FormCheckoutPage() {
     e.preventDefault();
     const dataToSend = { ...formData, videogames };
 
-    axios.post("http://localhost:3000/orders/addOrder", dataToSend).then((res) => console.log(res));
+    axios
+      .post("http://localhost:3000/orders/addOrder", dataToSend)
+      .then((res) => console.log(res));
 
-    console.log(dataToSend);
+    localStorage.clear();
+    setFormData(initialFormData);
   };
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * item.amount,
+    0
+  );
 
   return (
     <>
       <div className="container mt-5">
         <div className="container mt-5">
-          <form onSubmit={handleFormSubmit} className="bg-light p-4 rounded shadow-sm">
+          <form
+            onSubmit={handleFormSubmit}
+            className="bg-light p-4 rounded shadow-sm"
+          >
             <h2 className="mb-4 text-center">Checkout</h2>
             <div className="mb-3">
               <label htmlFor="customer_name" className="form-label">
@@ -123,7 +129,10 @@ export default function FormCheckoutPage() {
                     className="list-group-item d-flex justify-content-between align-items-center"
                   >
                     <span>
-                      {item.name} <span className="badge bg-secondary ms-2">x{item.amount}</span>
+                      {item.name}{" "}
+                      <span className="badge bg-secondary ms-2">
+                        x{item.amount}
+                      </span>
                     </span>
                     <span>€ {Number(item.price).toFixed(2)}</span>
                   </li>

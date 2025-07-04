@@ -35,16 +35,17 @@ const VideogamesList = () => {
   useEffect(() => {
     const params = [];
     if (genreFilter) params.push(`genre=${encodeURIComponent(genreFilter)}`);
-    if (platformFilter) params.push(`platform=${encodeURIComponent(platformFilter)}`);
+    if (platformFilter)
+      params.push(`platform=${encodeURIComponent(platformFilter)}`);
     if (sortField) params.push(`sort=${encodeURIComponent(sortField)}`);
-    if (sortField && sortDirection) params.push(`direction=${encodeURIComponent(sortDirection)}`);
+    if (sortField && sortDirection)
+      params.push(`direction=${encodeURIComponent(sortDirection)}`);
     const queryString = params.length ? `?${params.join("&")}` : "";
 
     fetch(`http://localhost:3000/videogames${queryString}`)
       .then((response) => response.json())
       .then((data) => {
         setVideogames(data.results);
-        console.log("Videogiochi filtrati e ordinati:", data.results);
       })
       .catch((error) => {
         console.error("Errore durante la ricezione dei dati", error);
@@ -53,7 +54,9 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
+    .filter(
+      (platform, index, arr) => platform && arr.indexOf(platform) === index
+    );
 
   return (
     <div>

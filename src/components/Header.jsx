@@ -8,9 +8,12 @@ export default function Header() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (search.trim()) {
+    if (search.trim() === "") {
+      navigate("/");
+    } else if (search.trim()) {
       navigate(`/search?${params.toString()}`);
     }
+    setSearch("");
   };
 
   return (

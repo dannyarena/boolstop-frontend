@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
+import CardGameDamb from "../components/CardGameDamb";
 
 export default function SearchResultsPage() {
   const [results, setResults] = useState([]);
@@ -22,14 +23,20 @@ export default function SearchResultsPage() {
 
   return (
     <>
-      <h1>Risultati per: {name}</h1>
-
-      {results.map((videogame) => (
-        <ul key={videogame.id}>
-          <li>{videogame.name}</li>
-          <li>{videogame.description}</li>
-        </ul>
-      ))}
+      <div className="container bg-light p-4 rounded-5">
+        <h1>Risultati per: "{name}"</h1>
+        {loading ? (
+          <p>Caricamento...</p>
+        ) : results.length === 0 ? (
+          <h3 className="text-center">Nessun risultato trovato.</h3>
+        ) : (
+          <div className="row g-3 justify-content-center my-3">
+            {results.map((videogame) => (
+              <CardGameDamb game={videogame} />
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }

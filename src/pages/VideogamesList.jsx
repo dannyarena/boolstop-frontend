@@ -35,11 +35,9 @@ const VideogamesList = () => {
   useEffect(() => {
     const params = [];
     if (genreFilter) params.push(`genre=${encodeURIComponent(genreFilter)}`);
-    if (platformFilter)
-      params.push(`platform=${encodeURIComponent(platformFilter)}`);
+    if (platformFilter) params.push(`platform=${encodeURIComponent(platformFilter)}`);
     if (sortField) params.push(`sort=${encodeURIComponent(sortField)}`);
-    if (sortField && sortDirection)
-      params.push(`direction=${encodeURIComponent(sortDirection)}`);
+    if (sortField && sortDirection) params.push(`direction=${encodeURIComponent(sortDirection)}`);
     const queryString = params.length ? `?${params.join("&")}` : "";
 
     fetch(`http://localhost:3000/videogames${queryString}`)
@@ -55,9 +53,7 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter(
-      (platform, index, arr) => platform && arr.indexOf(platform) === index
-    );
+    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
 
   return (
     <div>
@@ -67,7 +63,7 @@ const VideogamesList = () => {
           <div className="col-md-3">
             <select
               id="genreFilter"
-              className="filter form-select bg-warning text-dark border-0 fw-bold"
+              className="filter form-select bg-warning text-dark border-0 fw-bold fs-4"
               value={genreFilter}
               onChange={(e) => setGenreFilter(e.target.value)}
             >
@@ -83,7 +79,7 @@ const VideogamesList = () => {
           <div className="col-md-3">
             <select
               id="platformFilter"
-              className="filter form-select bg-warning text-dark border-0 fw-bold"
+              className="filter form-select bg-warning text-dark border-0 fw-bold fs-4"
               value={platformFilter}
               onChange={(e) => setPlatformFilter(e.target.value)}
             >
@@ -99,7 +95,7 @@ const VideogamesList = () => {
           <div className="col-md-3">
             <select
               id="sortOrder"
-              className="filter form-select bg-warning text-dark border-0 fw-bold"
+              className="filter form-select bg-warning text-dark border-0 fw-bold fs-4"
               value={`${sortField}-${sortDirection}`}
               onChange={(e) => {
                 const [field, direction] = e.target.value.split("-");
@@ -120,13 +116,13 @@ const VideogamesList = () => {
           <div className="col-md-3 bottonContainer d-flex justify-content-center align-items-center">
             {" "}
             <button
-              className="btn btn-warning mb-3 text-uppercase fw-bold"
+              className="btn btn-warning text-uppercase fw-bold"
               onClick={() => setShowList((prev) => !prev)}
             >
               {showList ? (
-                <i className="bi bi-list"></i>
+                <i className="bi bi-list fs-3"></i>
               ) : (
-                <i className="bi bi-layout-three-columns"></i>
+                <i className="bi bi-layout-three-columns fs-3"></i>
               )}
             </button>
           </div>

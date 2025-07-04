@@ -7,7 +7,7 @@ import PlatformsPage from "./pages/PlatformsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import VideogamesList from "./pages/VideogamesList";
 import VideogameDetail from "./pages/VideogameDetail";
-import CheckoutPage from "./pages/CheckoutPage";
+import FormCheckoutPage from "./pages/FormCheckoutPage";
 
 import SearchResultsPage from "./pages/SearchResultsPage";
 
@@ -29,7 +29,7 @@ export default function App() {
               path="/videogames/:platform/:id"
               element={<PlatformsPage />}
             /> */}
-
+            <Route path="/formCheckout" element={<FormCheckoutPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

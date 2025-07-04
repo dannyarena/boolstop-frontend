@@ -21,18 +21,20 @@ const VideogamesDetail = () => {
 
   const addToCart = () => {
     const ItemToAdd = {
-      id: videogame.id,
+      videogame_id: videogame.id,
       name: videogame.name,
       price: videogame.original_price,
       image: videogame.image,
-      quantity: 1,
+      amount: 1,
     };
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItemIndex = cart.findIndex((item) => item.id === ItemToAdd.id);
+    const existingItemIndex = cart.findIndex(
+      (item) => item.videogame_id === ItemToAdd.videogame_id
+    );
 
     if (existingItemIndex !== -1) {
-      cart[existingItemIndex].quantity += 1;
+      cart[existingItemIndex].amount += 1;
     } else {
       cart.push(ItemToAdd);
     }

@@ -19,11 +19,22 @@ const VideogamesDetail = () => {
       });
   }, [slug]);
 
+  // Sposta qui tutte le funzioni e variabili che usano videogame
+  const discount =
+    videogame && videogame.discount_percentage
+      ? (videogame.original_price * videogame.discount_percentage) / 100
+      : 0;
+  const finalPrice =
+    videogame && videogame.original_price
+      ? videogame.original_price - discount
+      : 0;
+
   const addToCart = () => {
+    if (!videogame) return;
     const ItemToAdd = {
       videogame_id: videogame.id,
       name: videogame.name,
-      price: videogame.original_price,
+      price: Number(finalPrice.toFixed(2)),
       image: videogame.image,
       amount: 1,
     };
@@ -48,6 +59,7 @@ const VideogamesDetail = () => {
     addToCart();
     navigate("/cart");
   };
+
   useEffect(() => {
     if (videogame) {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -55,10 +67,8 @@ const VideogamesDetail = () => {
       setAmountInCart(item ? item.amount : 0);
     }
   }, [videogame]);
-  if (!videogame) return <p>Caricamento...</p>;
 
-  const dsc = (videogame.original_price * videogame.discount_percentage) / 100;
-  const price = (videogame.original_price - dsc).toFixed(2);
+  if (!videogame) return <p>Caricamento...</p>;
 
   return (
     <>
@@ -82,8 +92,7 @@ const VideogamesDetail = () => {
             </p>
             <p>
               <strong className="fs-5">
-                {price}
-                &euro;
+                {finalPrice.toFixed(2)} &euro;
               </strong>
             </p>
           </>

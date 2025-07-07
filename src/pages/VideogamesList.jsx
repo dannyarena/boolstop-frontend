@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import CardGameDamb from "../components/CardGameDamb";
 import ListGameDamb from "../components/ListGameDamb";
+import axios from "axios";
+import { useSearchParams } from "react-router";
 
 // setFunzioni
 const VideogamesList = () => {
@@ -12,6 +14,8 @@ const VideogamesList = () => {
   const [platformFilter, setPlatformFilter] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     fetch("http://localhost:3000/videogames")
@@ -33,16 +37,26 @@ const VideogamesList = () => {
   }, []);
 
   useEffect(() => {
-    const params = [];
-    if (genreFilter) params.push(`genre=${encodeURIComponent(genreFilter)}`);
-    if (platformFilter)
-      params.push(`platform=${encodeURIComponent(platformFilter)}`);
-    if (sortField) params.push(`sort=${encodeURIComponent(sortField)}`);
-    if (sortField && sortDirection)
-      params.push(`direction=${encodeURIComponent(sortDirection)}`);
-    const queryString = params.length ? `?${params.join("&")}` : "";
+    // const genreFilter = searchParams.get("genre");
+    // const platformFilter = searchParams.get("platform");
+    // const sortField = searchParams.get("sort");
+    // const sortDirection = searchParams.get("direction");
 
-    fetch(`http://localhost:3000/videogames${queryString}`)
+    const params = new URLSearchParams();
+
+    // const params = [];
+    if (genreFilter) params.append("genre", genreFilter);
+    if (platformFilter) params.append(`platform`, platformFilter);
+    if (sortField) params.append("sort", sortField);
+    if (sortField && sortDirection) params.append("direction", sortDirection);
+    const queryString = params.toString();
+    const url = `http://localhost:3000/videogames${
+      queryString ? `?${queryString}` : ""
+    }`;
+
+    console.log("Request URL:", url);
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setVideogames(data.results);
@@ -50,7 +64,26 @@ const VideogamesList = () => {
       .catch((error) => {
         console.error("Errore durante la ricezione dei dati", error);
       });
+
+    setSearchParams(params);
   }, [genreFilter, platformFilter, sortField, sortDirection]);
+
+  // useEffect(() => {
+  //   const params = {};
+  //   if (genreFilter) params.genre = genreFilter;
+  //   if (platformFilter) params.platform = platformFilter;
+  //   if (sortField) params.sort = sortField;
+  //   if (sortField && sortDirection) params.direction = sortDirection;
+
+  //   axios
+  //     .get("http://localhost:3000/videogames", { params }) // <-- qui passi { params: { ... } }
+  //     .then((response) => {
+  //       setVideogames(response.data.results);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Errore durante la ricezione dei dati", error);
+  //     });
+  // }, [genreFilter, platformFilter, sortField, sortDirection]);
 
   const platforms = allVideogames
     .map((g) => g.platform)

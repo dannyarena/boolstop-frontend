@@ -55,6 +55,33 @@ const VideogamesDetail = () => {
     setAmountInCart(item ? item.amount : 0);
   };
 
+  const removeFromCart = () => {
+    if (!videogame) return;
+    const ItemToRemove = {
+      videogame_id: videogame.id,
+      name: videogame.name,
+      price: Number(finalPrice.toFixed(2)),
+      image: videogame.image,
+      amount: 1,
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = cart.findIndex(
+      (item) => item.videogame_id === ItemToRemove.videogame_id
+    );
+
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].amount -= 1;
+      if (cart[existingItemIndex].amount === 0) {
+        cart.splice(existingItemIndex, 1);
+      }
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    const item = cart.find((item) => item.videogame_id === videogame.id);
+    setAmountInCart(item ? item.amount : 0);
+  };
+
   const buyNow = () => {
     addToCart();
     navigate("/cart");
@@ -91,9 +118,7 @@ const VideogamesDetail = () => {
               {videogame.original_price} &euro;
             </p>
             <p>
-              <strong className="fs-5">
-                {finalPrice.toFixed(2)} &euro;
-              </strong>
+              <strong className="fs-5">{finalPrice.toFixed(2)} &euro;</strong>
             </p>
           </>
         ) : (
@@ -131,7 +156,13 @@ const VideogamesDetail = () => {
               className="btn btn-success mt-4"
               onClick={() => addToCart()}
             >
-              Aggiungi al carrello
+              +
+            </button>
+            <button
+              className="btn btn-success mt-4"
+              onClick={() => removeFromCart()}
+            >
+              -
             </button>
             <div>aggiunto al carrello (quantità: {amountInCart})</div>
           </div>

@@ -9,9 +9,9 @@ export default function OrderRecapPage() {
     <>
       <div className="container bg-light bg-gradient py-5 rounded-5 shadow-lg d-flex align-items-center justify-content-center flex-column">
         <h2>Ordine inviato</h2>
-        <p>{order.name}</p>
-        <p>{order.surname}</p>
-        <p>{order.email}</p>
+        <p>name: {order.name}</p>
+        <p>surname: {order.surname}</p>
+        <p>email: {order.email}</p>
         <p>Data: {new Date(order.date).toLocaleDateString()}</p>
         <p>Numero d'ordine: {order.orderNumber}</p>
         <p>Videogiochi ordinati:</p>

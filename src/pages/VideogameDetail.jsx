@@ -51,10 +51,22 @@ const VideogamesDetail = () => {
 
   const addToCart = () => {
     if (!videogame) return;
+    const discount = videogame.discount_percentage || 0;
+    const priceWithDiscount = videogame.original_price;
+    const price = Number(
+      (
+        videogame.original_price -
+        (videogame.original_price * discount) / 100
+      ).toFixed(2)
+    );
+
     const ItemToAdd = {
       videogame_id: videogame.id,
       name: videogame.name,
-      price: Number(finalPrice.toFixed(2)),
+      original_price: videogame.original_price,
+      priceWithDiscount, // prezzo originale
+      price, // prezzo scontato
+      discount_percentage: discount,
       image: videogame.image,
       amount: 1,
     };

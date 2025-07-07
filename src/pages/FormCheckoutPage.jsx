@@ -32,10 +32,26 @@ export default function FormCheckoutPage() {
       .then((res) => console.log(res));
 
     setFormData(initialFormData);
+    localStorage.setItem(
+      "order",
+      JSON.stringify({
+        name: formData.customer_name,
+        surname: formData.customer_surname,
+        email: formData.customer_email,
+        shippingAddress: formData.shipping_address,
+        date: new Date().toISOString(),
+        orderNumber: Math.floor(Math.random() * 1000000),
+        totalPrice,
+      })
+    );
 
     navigate("/orderRecap");
-    localStorage.clear();
   };
+
+  const totalDiscount = cart.reduce((acc, item) => {
+    const discount = item.discount_percentage || 0;
+    return acc + (item.price * item.amount * discount) / 100;
+  }, 0);
 
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.amount,
@@ -141,6 +157,11 @@ export default function FormCheckoutPage() {
                     <span>€ {Number(item.price).toFixed(2)}</span>
                   </li>
                 ))}
+                {totalDiscount > 0 && (
+                  <li className="list-group-item d-flex justify-content-between align-items-center text-danger">
+                    Sconto applicato: -€ {totalDiscount.toFixed(2)}
+                  </li>
+                )}
                 <li className="list-group-item d-flex justify-content-between align-items-center fw-bold">
                   Totale
                   <span>€ {totalPrice.toFixed(2)}</span>

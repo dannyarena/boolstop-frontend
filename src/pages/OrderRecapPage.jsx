@@ -29,7 +29,7 @@ export default function OrderRecapPage() {
           ))}
         </ul>
 
-        <p>Totale: € {order.totalPrice}</p>
+        <p>Totale: € {order.discountedPrice.toFixed(2)}</p>
         {/* <p>Metodo di pagamento: {order.paymentMethod}</p> */}
         <p className="mt-3 fs-5">
           Grazie per il tuo acquisto! Il tuo ordine è stato elaborato con

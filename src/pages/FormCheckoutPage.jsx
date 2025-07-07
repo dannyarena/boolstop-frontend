@@ -14,9 +14,14 @@ export default function FormCheckoutPage() {
     customer_surname: "",
     shipping_address: "",
     customer_email: "",
+    discount_code_name: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [priceDiscounted, setPriceDiscounted] = useState(0);
+  const [valueDiscount, setValueDiscount] = useState(0);
+  const [messageError, setMessageError] = useState("");
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -41,11 +46,24 @@ export default function FormCheckoutPage() {
         shippingAddress: formData.shipping_address,
         date: new Date().toISOString(),
         orderNumber: Math.floor(Math.random() * 1000000),
-        totalPrice,
+        discountedPrice,
       })
     );
 
     navigate("/orderRecap");
+  };
+
+  const dataDiscount = { discount_code_name: formData.discount_code_name };
+
+  const handleValidationDiscount = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3000/orders/validate-discount", dataDiscount)
+      .then((res) => {
+        setValueDiscount(res.data.discount_value);
+      })
+      .catch((err) => setMessageError(err.response.data.message));
   };
 
   const totalDiscount = cart.reduce((acc, item) => {
@@ -57,6 +75,8 @@ export default function FormCheckoutPage() {
     (acc, item) => acc + item.price * item.amount,
     0
   );
+
+  const discountedPrice = totalPrice * (1 - valueDiscount / 100);
 
   return (
     <>
@@ -136,6 +156,24 @@ export default function FormCheckoutPage() {
             </button>
           </form>
 
+          <form onSubmit={handleValidationDiscount}>
+            <div className="mb-3">
+              <label htmlFor="shipping_address" className="form-label">
+                codice sconto
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="discount_code_name"
+                name="discount_code_name"
+                placeholder="inserisci codice sconto"
+                value={formData.discount_code_name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button className="btn btn-primary">verifica</button>
+          </form>
+
           {/* Riepilogo ordine */}
           <div className="mb-4">
             <h4 className="mb-3">Riepilogo ordine</h4>
@@ -162,9 +200,15 @@ export default function FormCheckoutPage() {
                     Sconto applicato: -€ {totalDiscount.toFixed(2)}
                   </li>
                 )}
+
                 <li className="list-group-item d-flex justify-content-between align-items-center fw-bold">
                   Totale
-                  <span>€ {totalPrice.toFixed(2)}</span>
+                  <span>
+                    €{" "}
+                    {valueDiscount
+                      ? discountedPrice.toFixed(2)
+                      : totalPrice.toFixed(2)}
+                  </span>
                 </li>
               </ul>
             )}

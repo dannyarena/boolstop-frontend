@@ -49,64 +49,67 @@ const CartPage = () => {
   };
 
   return (
-    <div className="container py-4">
-      <h2>Il tuo carrello</h2>
+    <div className="container">
+      <div className="wrapper">
+        <h2 className="text-center fs-1 ">IL TUO CARRELLO</h2>
+        <hr />
 
-      {cartItems.length === 0 ? (
-        <p>Il carrello è vuoto.</p>
-      ) : (
-        <div className="row">
-          {cartItems.map((item) => {
-            return (
-              <div className="col-md-4 mb-3" key={item.videogame_id}>
-                <div className="card">
-                  <img
-                    src={`${item.image}`}
-                    alt={item.name}
-                    className="card-img-top"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text">Prezzo: € {item.price}</p>
-                    <p className="card-text">Quantità: {item.amount}</p>
-                    <button
-                      className="btn btn-sm btn-success me-2"
-                      onClick={() => handleIncrease(item.videogame_id)}
-                    >
-                      {" "}
-                      +
-                    </button>
-                    <button
-                      className="btn btn-sm btn-success me-2"
-                      onClick={() => handleDecrease(item.videogame_id)}
-                    >
-                      {" "}
-                      -
-                    </button>
-                    <button
-                      className="btn btn-sm btn-danger"
-                      onClick={() => handleRemove(item.videogame_id)}
-                    >
-                      Rimuovi
-                    </button>
+        {cartItems.length === 0 ? (
+          <p>Il carrello è vuoto.</p>
+        ) : (
+          <div className="row justify-content-left align-items-center g-4">
+            {cartItems.map((item) => {
+              return (
+                <div className="col-md-4" key={item.videogame_id}>
+                  <div className="card  bg-light shadow-sm border-0 rounded h-100 ">
+                    <img
+                      src={`${item.image}`}
+                      alt={item.name}
+                      className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.name}</h5>
+                      <p className="card-text">Prezzo: € {item.price}</p>
+                      <p className="card-text">Quantità: {item.amount}</p>
+                      <button
+                        className="btn  btn-success me-2 fs-1 fw-bold border-0  "
+                        onClick={() => handleIncrease(item.videogame_id)}
+                      >
+                        {" "}
+                        +
+                      </button>
+                      <button
+                        className="btn btn-success me-2 fs-1 fw-bold border-0"
+                        onClick={() => handleDecrease(item.videogame_id)}
+                      >
+                        {" "}
+                        -
+                      </button>
+                      <button
+                        className="btn  btn-danger me-2 fs-4  border-0"
+                        onClick={() => handleRemove(item.videogame_id)}
+                      >
+                        Rimuovi
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-            {/* tofixed 2 serve per mostrare due decimali (es. 123.50) */}
-            <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
-            <button
-              className="btn btn-warning"
-              onClick={() => navigate("/formcheckout")}
-              disabled={cartItems.length === 0}
-            >
-              Procedi all'ordine
-            </button>
+              );
+            })}
+
+            <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
+              <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
+              <button
+                className="btn btn-warning fs-5 fw-bold text-uppercase"
+                onClick={() => navigate("/formcheckout")}
+                disabled={cartItems.length === 0}
+              >
+                Procedi all'ordine
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

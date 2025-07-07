@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CardGameDamb from "../components/CardGameDamb";
 
 const VideogamesDetail = () => {
   // con slug leggiamo i parametri dinamici della rotta
@@ -7,6 +8,27 @@ const VideogamesDetail = () => {
   const [videogame, setVideogame] = useState(null);
   const navigate = useNavigate();
   const [amountInCart, setAmountInCart] = useState(0);
+  const [relatedGames, setRelatedGames] = useState([]);
+
+  const [wishlistIds, setWishlistIds] = useState([]);
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistIds(wishlist);
+  }, [slug]);
+
+  const handleToggleWishlist = (id) => {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (wishlist.includes(id)) {
+      wishlist = wishlist.filter((gameId) => gameId !== id);
+    } else {
+      wishlist.push(id);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    setWishlistIds(wishlist);
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3000/videogames/slug/${slug}`)
@@ -25,9 +47,7 @@ const VideogamesDetail = () => {
       ? (videogame.original_price * videogame.discount_percentage) / 100
       : 0;
   const finalPrice =
-    videogame && videogame.original_price
-      ? videogame.original_price - discount
-      : 0;
+    videogame && videogame.original_price ? videogame.original_price - discount : 0;
 
   const addToCart = () => {
     if (!videogame) return;
@@ -95,6 +115,26 @@ const VideogamesDetail = () => {
     }
   }, [videogame]);
 
+  useEffect(() => {
+    if (!videogame) return;
+
+    const genresArray = videogame.genres.split(",").map((g) => g.trim());
+
+    fetch("http://localhost:3000/videogames")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Videogiochi correlati:", data);
+        const related = data.results.filter((vg) => {
+          if (vg.id === videogame.id) return false;
+          console.log("Controllo generi:", vg.genres);
+          const vgGenres = vg.genres.map((g) => g.trim());
+          return vgGenres.some((g) => genresArray.includes(g));
+        });
+        setRelatedGames(related);
+      })
+      .catch(console.error);
+  }, [videogame]);
+
   if (!videogame) return <p>Caricamento...</p>;
 
   return (
@@ -114,9 +154,7 @@ const VideogamesDetail = () => {
         </p>
         {videogame.discount_percentage ? (
           <>
-            <p className="fs-10 text-decoration-line-through">
-              {videogame.original_price} &euro;
-            </p>
+            <p className="fs-10 text-decoration-line-through">{videogame.original_price} &euro;</p>
             <p>
               <strong className="fs-5">{finalPrice.toFixed(2)} &euro;</strong>
             </p>
@@ -152,16 +190,10 @@ const VideogamesDetail = () => {
           </button>
         ) : (
           <div>
-            <button
-              className="btn btn-success mt-4"
-              onClick={() => addToCart()}
-            >
+            <button className="btn btn-success mt-4" onClick={() => addToCart()}>
               +
             </button>
-            <button
-              className="btn btn-success mt-4"
-              onClick={() => removeFromCart()}
-            >
+            <button className="btn btn-success mt-4" onClick={() => removeFromCart()}>
               -
             </button>
             <div>aggiunto al carrello (quantità: {amountInCart})</div>
@@ -171,6 +203,25 @@ const VideogamesDetail = () => {
         <button className="btn btn-primary mt-4" onClick={buyNow}>
           Compra ora
         </button>
+      </div>
+
+      <div className="container bg-light p-4 mt-5 rounded-5 shadow-lg">
+        <h1 className="text-center">Videogiochi Correlati</h1>
+        <div className="row g-3">
+          {relatedGames.length === 0 ? (
+            <p className="text-center">Nessun gioco correlato trovato</p>
+          ) : (
+            relatedGames.map((game) => (
+              <CardGameDamb
+                key={game.id}
+                game={game}
+                platform={false}
+                isInWishlist={wishlistIds.includes(game.id)}
+                onToggleWishlist={handleToggleWishlist}
+              />
+            ))
+          )}
+        </div>
       </div>
     </>
   );

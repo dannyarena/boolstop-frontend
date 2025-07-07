@@ -62,7 +62,7 @@ const CartPage = () => {
         <hr />
 
         {cartItems.length === 0 ? (
-          <p>Il carrello è vuoto.</p>
+          <p className="text-center fs-5 fw-bold  ">Il carrello è vuoto.</p>
         ) : (
           <div className="row justify-content-left align-items-center g-4">
             {cartItems.map((item) => {

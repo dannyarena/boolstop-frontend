@@ -10,6 +10,7 @@ import VideogameDetail from "./pages/VideogameDetail";
 import FormCheckoutPage from "./pages/FormCheckoutPage";
 import OrderRecapPage from "./pages/OrderRecapPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import Wishlist from "./pages/Wishlist";
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
             <Route path="/videogames" element={<VideogamesList />} />
             {/* <Route path="/videogames/:id" element={<DetailGame />} /> */}
             <Route path="/videogames/:platform" element={<PlatformsPage />} />
-            {/* <Route path="/checkout" element={<CheckoutPage />} /> */}
+            <Route path="/wishlist" element={<Wishlist />} />
             {/* <Route
               path="/videogames/:platform/:id"
               element={<PlatformsPage />}

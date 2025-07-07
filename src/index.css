@@ -120,6 +120,15 @@ body {
   margin-bottom: 10px;
 }
 
+.heart {
+  cursor: pointer;
+  color: red;
+  padding: 5px 10px;
+  background-color: #ffcc00;
+  border-radius: 7px;
+  font-size: 2rem;
+}
+
 .allListTitle {
   text-align: center;
   color: #ffcc00;

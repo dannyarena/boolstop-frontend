@@ -3,10 +3,22 @@ import { dataPath } from "../data/dataPath";
 import { Link } from "react-router";
 import CardGameDamb from "../components/CardGameDamb";
 import { useEffect, useState } from "react";
+import PromoCarousel from "../components/PromoCarousel";
 
 export default function Homepage() {
   const [discountedGames, setDiscountedGames] = useState([]);
   const [wishlistIds, setWishlistIds] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const totalSlides = discountedGames.length;
+
+  const goPrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  };
+
+  const goNext = () => {
+    setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/videogames")
@@ -21,24 +33,19 @@ export default function Homepage() {
   }, []);
 
   useEffect(() => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const ids = wishlist.map((item) => item.videogame_id);
-    setWishlistIds(ids);
+    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistIds(savedWishlist);
   }, []);
 
-  const handleToggleWishlist = (id) => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const index = wishlist.findIndex((item) => item.videogame_id === id);
-
-    if (index !== -1) {
-      wishlist.splice(index, 1);
+  const handleToggleWishlist = (gameId) => {
+    let updated;
+    if (wishlistIds.includes(gameId)) {
+      updated = wishlistIds.filter((id) => id !== gameId);
     } else {
-      wishlist.push({ videogame_id: id });
+      updated = [...wishlistIds, gameId];
     }
-
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    const updatedIds = wishlist.map((item) => item.videogame_id);
-    setWishlistIds(updatedIds);
+    setWishlistIds(updated);
+    localStorage.setItem("wishlist", JSON.stringify(updated));
   };
 
   return (
@@ -62,25 +69,11 @@ export default function Homepage() {
             ))}
           </section>
           <section className="discounted-games container mt-5 p-4">
-            <h2 className="text-center text-white fs-1 mb-4">
-              <i class="bi bi-fire text-danger"></i> OFFERTE DEL MOMENTO{" "}
-              <i class="bi bi-fire text-danger"></i>
-            </h2>
-            <div className="row g-3 justify-content-center">
-              {discountedGames.length === 0 ? (
-                <p className="text-white text-center">Nessuna offerta al momento.</p>
-              ) : (
-                discountedGames.map((game) => (
-                  <CardGameDamb
-                    key={game.id}
-                    game={game}
-                    platform={false}
-                    isInWishlist={wishlistIds.includes(game.id)}
-                    onToggleWishlist={handleToggleWishlist}
-                  />
-                ))
-              )}
-            </div>
+            <PromoCarousel
+              discountedGames={discountedGames}
+              wishlistIds={wishlistIds}
+              onToggleWishlist={handleToggleWishlist}
+            />
           </section>
         </div>
       </div>

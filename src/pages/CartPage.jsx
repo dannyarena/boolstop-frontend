@@ -17,6 +17,11 @@ const CartPage = () => {
     return acc + Number(item.price) * item.amount;
   }, 0);
 
+  const totalDiscount = cartItems.reduce((acc, item) => {
+    const discount = item.discount_percentage || 0;
+    return acc + (Number(item.price) * item.amount * discount) / 100;
+  }, 0);
+
   // Usa videogame_id come chiave unica per ogni prodotto
   const handleIncrease = (videogame_id) => {
     const updatedCart = cartItems.map((item) => {
@@ -76,7 +81,20 @@ const CartPage = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{item.name}</h5>
-                      <p className="card-text">Prezzo: € {item.price}</p>
+                      {item.discount_percentage ? (
+                        <>
+                          <p>
+                            prezzo originale: €{" "}
+                            <span className="card-text text-decoration-line-through">
+                              {item.priceWithDiscount}
+                            </span>
+                          </p>
+                          <p className="card-text">Prezzo: € {item.price}</p>
+                        </>
+                      ) : (
+                        <p className="card-text">Prezzo: € {item.price}</p>
+                      )}
+
                       <p className="card-text">Quantità: {item.amount}</p>
                       <button
                         className="btn  btn-success me-2 fs-1 fw-bold border-0  "
@@ -103,7 +121,11 @@ const CartPage = () => {
                 </div>
               );
             })}
-
+            <div>
+              <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
+                Sconto totale: -€ {totalDiscount.toFixed(2)}
+              </div>
+            </div>
             <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
               <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
               <button

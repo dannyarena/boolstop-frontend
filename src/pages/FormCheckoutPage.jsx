@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 export default function FormCheckoutPage() {
-  const cart = JSON.parse(localStorage.getItem("cart"));
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   const videogames = cart.map((item) => {
     return { videogame_id: item.videogame_id, amount: item.amount };

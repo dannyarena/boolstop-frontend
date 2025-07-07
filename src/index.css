@@ -23,7 +23,7 @@
   border-radius: 50px;
   box-shadow: 0px 0px 50px rgb(0, 0, 0);
   overflow: hidden;
-  background-image: url("../public/img/ddrfu5v-8497eeac-ad03-4abf-957a-63159599231e.jpg");
+  background-image: url("/img/ddrfu5v-8497eeac-ad03-4abf-957a-63159599231e.jpg");
   background-position: center;
   background-size: cover;
   opacity: 0.89;
@@ -38,7 +38,7 @@
 }
 
 body {
-  background-image: url("../public/img/1000_F_524741041_RBfJBzahjDcEHI0bG3Azw2225SoQfNOh.jpg");
+  background-image: url("/img/1000_F_524741041_RBfJBzahjDcEHI0bG3Azw2225SoQfNOh.jpg");
 }
 
 .div-platforms:hover {
@@ -175,4 +175,12 @@ body {
   right: 0;
   transform: translate(50%, -50%);
   font-size: 15px;
+}
+
+.addtocard {
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #ffcc00;
+  border-radius: 7px;
+  font-size: 2rem;
 }

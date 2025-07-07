@@ -49,8 +49,15 @@ const CartPage = () => {
   };
 
   return (
-    <div className="container">
-      <div className="wrapper">
+    <div className="container ">
+      <div className="wrapper position-relative mt-5 p-4 bg-light shadow-lg rounded">
+        <button
+          className="btn btn-warning position-absolute top-0 end-0 m-2 fs-5 fw-bold"
+          onClick={() => navigate("/videogames")}
+        >
+          Continua a fare acquisti
+          <i className="bi bi-arrow-right fs-5 ms-2"></i>
+        </button>
         <h2 className="text-center fs-1 ">IL TUO CARRELLO</h2>
         <hr />
 

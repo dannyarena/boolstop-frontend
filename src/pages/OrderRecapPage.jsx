@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router";
-
+import { useEffect } from "react";
 export default function OrderRecapPage() {
   const navigate = useNavigate();
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const order = JSON.parse(localStorage.getItem("order")) || {};
+
+  useEffect(() => {
+    localStorage.removeItem("cart");
+    localStorage.removeItem("order");
+  }, []);
   return (
     <>
       <div className="container bg-light bg-gradient py-5 rounded-5 shadow-lg d-flex align-items-center justify-content-center flex-column">
@@ -12,14 +17,14 @@ export default function OrderRecapPage() {
         <p>name: {order.name}</p>
         <p>surname: {order.surname}</p>
         <p>email: {order.email}</p>
+        <p>Indirizzo di spedizione: {order.shippingAddress}</p>
         <p>Data: {new Date(order.date).toLocaleDateString()}</p>
         <p>Numero d'ordine: {order.orderNumber}</p>
         <p>Videogiochi ordinati:</p>
         <ul>
-          <p>Indirizzo di spedizione: {order.shippingAddress}</p>
           {cart.map((item, index) => (
             <li key={index}>
-              {item.title} - € {item.price.toFixed(2)}
+              {item.name} x{item.amount} - € {Number(item.price).toFixed(2)}
             </li>
           ))}
         </ul>

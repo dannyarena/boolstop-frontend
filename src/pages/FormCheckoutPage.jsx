@@ -32,9 +32,20 @@ export default function FormCheckoutPage() {
       .then((res) => console.log(res));
 
     setFormData(initialFormData);
+    localStorage.setItem(
+      "order",
+      JSON.stringify({
+        name: formData.customer_name,
+        surname: formData.customer_surname,
+        email: formData.customer_email,
+        shippingAddress: formData.shipping_address,
+        date: new Date().toISOString(),
+        orderNumber: Math.floor(Math.random() * 1000000),
+        totalPrice,
+      })
+    );
 
     navigate("/orderRecap");
-    localStorage.clear();
   };
 
   const totalDiscount = cart.reduce((acc, item) => {

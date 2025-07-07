@@ -14,6 +14,7 @@ const VideogamesList = () => {
   const [platformFilter, setPlatformFilter] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [wishlistIds, setWishlistIds] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -37,6 +38,22 @@ const VideogamesList = () => {
   }, []);
 
   useEffect(() => {
+    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistIds(savedWishlist);
+  }, []);
+
+  const handleToggleWishlist = (gameId) => {
+    let updated;
+    if (wishlistIds.includes(gameId)) {
+      updated = wishlistIds.filter((id) => id !== gameId);
+    } else {
+      updated = [...wishlistIds, gameId];
+    }
+    setWishlistIds(updated);
+    localStorage.setItem("wishlist", JSON.stringify(updated));
+  };
+
+  useEffect(() => {
     // const genreFilter = searchParams.get("genre");
     // const platformFilter = searchParams.get("platform");
     // const sortField = searchParams.get("sort");
@@ -50,9 +67,7 @@ const VideogamesList = () => {
     if (sortField) params.append("sort", sortField);
     if (sortField && sortDirection) params.append("direction", sortDirection);
     const queryString = params.toString();
-    const url = `http://localhost:3000/videogames${
-      queryString ? `?${queryString}` : ""
-    }`;
+    const url = `http://localhost:3000/videogames${queryString ? `?${queryString}` : ""}`;
 
     console.log("Request URL:", url);
 
@@ -87,9 +102,7 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter(
-      (platform, index, arr) => platform && arr.indexOf(platform) === index
-    );
+    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
 
   return (
     <div>
@@ -167,7 +180,13 @@ const VideogamesList = () => {
         {showList ? (
           <div className="row g-3">
             {videogames.map((game) => (
-              <CardGameDamb key={game.id} game={game} />
+              <CardGameDamb
+                key={game.id}
+                game={game}
+                platform={false}
+                isInWishlist={wishlistIds.includes(game.id)}
+                onToggleWishlist={handleToggleWishlist}
+              />
             ))}
           </div>
         ) : (

@@ -12,6 +12,7 @@ export default function PlatformListComponent() {
   const [genreFilter, setGenreFilter] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [wishlistIds, setWishlistIds] = useState([]);
 
   const { platform } = useParams();
 
@@ -49,6 +50,24 @@ export default function PlatformListComponent() {
     }
     setVideogames(filtered);
   }, [allVideogames, genreFilter, sortField, sortDirection]);
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlistIds(wishlist);
+  }, []);
+
+  const handleToggleWishlist = (id) => {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (wishlist.includes(id)) {
+      wishlist = wishlist.filter((gameId) => gameId !== id);
+    } else {
+      wishlist.push(id);
+    }
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    setWishlistIds(wishlist);
+  };
 
   return (
     <>
@@ -105,7 +124,13 @@ export default function PlatformListComponent() {
           {showList ? (
             <div className="row g-3">
               {videogames.map((game) => (
-                <CardGameDamb key={game.id} game={game} platform={platform} />
+                <CardGameDamb
+                  key={game.id}
+                  game={game}
+                  platform={platform}
+                  isInWishlist={wishlistIds.includes(game.id)}
+                  onToggleWishlist={handleToggleWishlist}
+                />
               ))}
             </div>
           ) : (

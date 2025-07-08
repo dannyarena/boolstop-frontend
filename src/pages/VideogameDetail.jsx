@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CardGameDamb from "../components/CardGameDamb";
+import NotFoundPage from "./NotFoundPage";
 import RelatedGamesCarousel from "../components/RelatedGamesCarousel";
 
+// export
 const VideogamesDetail = () => {
   // con slug leggiamo i parametri dinamici della rotta
   const { slug } = useParams();
@@ -10,7 +12,7 @@ const VideogamesDetail = () => {
   const navigate = useNavigate();
   const [amountInCart, setAmountInCart] = useState(0);
   const [relatedGames, setRelatedGames] = useState([]);
-
+  const [notFound, setNotFound] = useState(false);
   const [wishlistIds, setWishlistIds] = useState([]);
 
   useEffect(() => {
@@ -33,13 +35,18 @@ const VideogamesDetail = () => {
 
   useEffect(() => {
     fetch(`http://localhost:3000/videogames/slug/${slug}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setVideogame(data);
+      .then((res) => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
       })
-      .catch((err) => {
-        console.error("Errore nella ricezione dei dati", err);
-      });
+      .then((data) => {
+        if (!data || Object.keys(data).length === 0) {
+          setNotFound(true);
+        } else {
+          setVideogame(data);
+        }
+      })
+      .catch(() => setNotFound(true));
   }, [slug]);
 
   // Sposta qui tutte le funzioni e variabili che usano videogame
@@ -48,14 +55,19 @@ const VideogamesDetail = () => {
       ? (videogame.original_price * videogame.discount_percentage) / 100
       : 0;
   const finalPrice =
-    videogame && videogame.original_price ? videogame.original_price - discount : 0;
+    videogame && videogame.original_price
+      ? videogame.original_price - discount
+      : 0;
 
   const addToCart = () => {
     if (!videogame) return;
     const discount = videogame.discount_percentage || 0;
     const priceWithDiscount = videogame.original_price;
     const price = Number(
-      (videogame.original_price - (videogame.original_price * discount) / 100).toFixed(2)
+      (
+        videogame.original_price -
+        (videogame.original_price * discount) / 100
+      ).toFixed(2)
     );
 
     const ItemToAdd = {
@@ -143,6 +155,7 @@ const VideogamesDetail = () => {
       .catch(console.error);
   }, [videogame]);
 
+  if (notFound) return <NotFoundPage />;
   if (!videogame) return <p>Caricamento...</p>;
 
   return (
@@ -162,7 +175,9 @@ const VideogamesDetail = () => {
         </p>
         {videogame.discount_percentage ? (
           <>
-            <p className="fs-10 text-decoration-line-through">{videogame.original_price} &euro;</p>
+            <p className="fs-10 text-decoration-line-through">
+              {videogame.original_price} &euro;
+            </p>
             <p>
               <strong className="fs-5">{finalPrice.toFixed(2)} &euro;</strong>
             </p>
@@ -198,10 +213,16 @@ const VideogamesDetail = () => {
           </button>
         ) : (
           <div>
-            <button className="btn btn-success mt-4" onClick={() => addToCart()}>
+            <button
+              className="btn btn-success mt-4"
+              onClick={() => addToCart()}
+            >
               +
             </button>
-            <button className="btn btn-success mt-4" onClick={() => removeFromCart()}>
+            <button
+              className="btn btn-success mt-4"
+              onClick={() => removeFromCart()}
+            >
               -
             </button>
             <div>aggiunto al carrello (quantità: {amountInCart})</div>

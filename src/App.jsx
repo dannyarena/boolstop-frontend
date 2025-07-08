@@ -32,6 +32,8 @@ export default function App() {
             /> */}
             <Route path="/formCheckout" element={<FormCheckoutPage />} />
             <Route path="/orderRecap" element={<OrderRecapPage />} />
+            {/* <Route path="/videogames/:wrongPath" element={<NotFoundPage />} /> */}
+            {/* <Route path="/videogames/*" element={<NotFoundPage />} /> */}
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

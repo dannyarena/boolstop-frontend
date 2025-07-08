@@ -51,7 +51,12 @@ export default function Header() {
             </li>
             <li className="nav-item position-relative">
               <span className="badge-amount position-absolute  badge rounded-pill bg-danger"></span>
-              <NavLink className="nav-link" to="/cart">
+              <NavLink
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                className="nav-link"
+                to="/cart"
+              >
                 <i className="bi bi-cart2 fs-3"></i>
               </NavLink>
             </li>

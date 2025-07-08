@@ -160,80 +160,114 @@ const VideogamesDetail = () => {
 
   return (
     <>
-      <div className="container bg-light bg-gradient text-center py-5 rounded-5 shadow-lg">
-        <h1>{videogame.name}</h1>
-        <img
-          src={`${videogame.image}`}
-          alt={videogame.name}
-          className="img-fluid my-3"
-          style={{ maxWidth: "400px" }}
-        />
-        <h4>{videogame.description}</h4>
-        <p>
-          <strong>Genere: </strong>
-          {videogame.genres}
-        </p>
-        {videogame.discount_percentage ? (
-          <>
-            <p className="fs-10 text-decoration-line-through">
-              {videogame.original_price} &euro;
+      <div className="videogames-container mt-5 text-center text-white">
+        <h1 className="titleDetailGame fw-bold p-5 ">{videogame.name}</h1>
+        <div className="row justify-content-around align-items-center">
+          <div className="col-12 col-md-6 ">
+            <img
+              id="imgDetail"
+              src={`${videogame.image}`}
+              alt={videogame.name}
+              className=" my-3 "
+            />
+          </div>
+
+          <div className="col-12 col-md-6 ">
+            <h4 className="fs-2 mb-4">{videogame.description}</h4>
+            <p className="fs-5">
+              <strong>Genere: </strong>
+              {videogame.genres}
+            </p>
+            {videogame.discount_percentage ? (
+              <>
+                <p className="fs-5 text-decoration-line-through text-danger">
+                  <strong>Prezzo originale: </strong>
+                  {videogame.original_price} &euro;
+                </p>
+                <p>
+                  <strong className="fs-5 text-success">
+                    <strong>Prezzo scontato: </strong>
+                    {finalPrice.toFixed(2)} &euro;
+                  </strong>
+                </p>
+              </>
+            ) : (
+              <p className="fs-5">
+                <strong>Prezzo: </strong>
+                {videogame.original_price} &euro;
+              </p>
+            )}
+            <p className="fs-5">
+              <strong>Piattaforma: </strong>
+              {videogame.platform}
+            </p>
+            <p className="fs-5">
+              <strong>Data di rilascio: </strong>
+              {new Date(videogame.release_date).toLocaleDateString("it-IT")}
+            </p>
+            <p className="fs-5">
+              <strong>PEGI: </strong>
+              {videogame.pegi}
             </p>
             <p>
-              <strong className="fs-5">{finalPrice.toFixed(2)} &euro;</strong>
+              {Array.from({ length: 5 }).map((_, i) =>
+                i < Math.round(videogame.rating) ? (
+                  <i key={i} className="bi bi-star-fill text-warning fs-3"></i>
+                ) : (
+                  <i key={i} className="bi bi-star text-warning fs-3"></i>
+                )
+              )}
             </p>
-          </>
-        ) : (
-          <p>{videogame.original_price} &euro;</p>
-        )}
-        <p>
-          <strong>Piattaforma: </strong>
-          {videogame.platform}
-        </p>
-        <p>
-          <strong>Data di rilascio: </strong>
-          {new Date(videogame.release_date).toLocaleDateString("it-IT")}
-        </p>
-        <p>
-          <strong>PEGI: </strong>
-          {videogame.pegi}
-        </p>
-        <p>
-          {Array.from({ length: 5 }).map((_, i) =>
-            i < Math.round(videogame.rating) ? (
-              <i key={i} className="bi bi-star-fill text-warning fs-3"></i>
+
+            {amountInCart === 0 ? (
+              <button
+                className="btn btn-warning m-4 fs-5"
+                onClick={() => addToCart()}
+              >
+                Aggiungi al carrello
+                <i className="bi bi-cart-plus-fill ms-2"></i>
+              </button>
             ) : (
-              <i key={i} className="bi bi-star text-warning fs-3"></i>
-            )
-          )}
-        </p>
+              <div>
+                <button
+                  className="btn btn-warning m-4 fs-5"
+                  onClick={() => addToCart()}
+                >
+                  +
+                </button>
+                <button
+                  className="btn btn-danger m-4 fs-5"
+                  onClick={() => removeFromCart()}
+                >
+                  -
+                </button>
+                <div className="fs-5 fw-bold">
+                  Aggiunto al carrello : + {amountInCart}
+                </div>
+              </div>
+            )}
 
-        {amountInCart === 0 ? (
-          <button className="btn btn-success mt-4" onClick={() => addToCart()}>
-            Aggiungi al carrello
-          </button>
-        ) : (
-          <div>
-            <button
-              className="btn btn-success mt-4"
-              onClick={() => addToCart()}
-            >
-              +
+            <button className="btn btn-primary m-4 fs-5" onClick={buyNow}>
+              Compra ora
+              <i className="bi bi-cart-check-fill ms-2"></i>
             </button>
             <button
-              className="btn btn-success mt-4"
-              onClick={() => removeFromCart()}
+              className="heart-button btn btn-outline-danger m-4 fs-5"
+              onClick={() => handleToggleWishlist(videogame.id)}
             >
-              -
+              {wishlistIds.includes(videogame.id) ? (
+                <>
+                  <i className="bi bi-heart-fill"></i>
+                </>
+              ) : (
+                <>
+                  <i className="bi bi-heart"></i>
+                </>
+              )}
             </button>
-            <div>aggiunto al carrello (quantità: {amountInCart})</div>
           </div>
-        )}
-
-        <button className="btn btn-primary mt-4" onClick={buyNow}>
-          Compra ora
-        </button>
+        </div>
       </div>
-
       <RelatedGamesCarousel
         games={relatedGames}
         wishlistIds={wishlistIds}

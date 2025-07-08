@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardGameDamb from "../components/CardGameDamb";
 
 export default function PromoCarousel({ discountedGames, wishlistIds, onToggleWishlist }) {
@@ -13,6 +13,14 @@ export default function PromoCarousel({ discountedGames, wishlistIds, onToggleWi
   const goNext = () => {
     setCurrentIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goNext();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [totalSlides]);
 
   if (totalSlides === 0) {
     return <p className="text-white text-center">Nessuna offerta al momento.</p>;

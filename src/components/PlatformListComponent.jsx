@@ -217,7 +217,7 @@ export default function PlatformListComponent() {
                 onClick={() => setShowList((prev) => !prev)}
               >
                 {showList ? (
-                  <i className="bi bi-list"></i>
+                  <i className="bi bi-list-ul fs-5"></i>
                 ) : (
                   <i className="bi bi-layout-three-columns"></i>
                 )}
@@ -225,7 +225,7 @@ export default function PlatformListComponent() {
             </div>
           </div>
           {showList ? (
-            <div className="row g-5">
+            <div className="row g-5 mt-3">
               {videogames.map((game) => (
                 <CardGameDamb
                   key={game.id}

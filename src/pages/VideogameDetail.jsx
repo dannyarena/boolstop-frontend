@@ -241,7 +241,9 @@ const VideogamesDetail = () => {
                 >
                   -
                 </button>
-                <div>aggiunto al carrello (quantità: {amountInCart})</div>
+                <div className="fs-5 fw-bold">
+                  Aggiunto al carrello : + {amountInCart}
+                </div>
               </div>
             )}
 

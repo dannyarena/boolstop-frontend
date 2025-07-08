@@ -36,8 +36,8 @@ export default function CartModalComponent() {
       >
         <div className="modal-dialog">
           <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
+            <div className="modal-header bg-warning text-dark ">
+              <h1 className="modal-title fs-5 fw-bold" id="exampleModalLabel">
                 Carrello
               </h1>
               <button
@@ -51,7 +51,10 @@ export default function CartModalComponent() {
               <ul>
                 {cartItems.map((item) => (
                   <li key={item.videogame_id}>
-                    {item.name} - {item.price} X {item.amount}
+                    {item.name} - {item.price} &euro;{" "}
+                    <span className="badge bg-secondary ms-2 ">
+                      X{item.amount}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -70,10 +73,11 @@ export default function CartModalComponent() {
                   navigate("/cart");
                 }}
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-warning"
                 data-bs-dismiss="modal"
               >
                 Vai al carrello
+                <i className="bi bi-cart-check-fill ms-2"></i>
               </button>
             </div>
           </div>

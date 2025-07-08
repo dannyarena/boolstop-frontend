@@ -75,13 +75,13 @@ export default function CardGameDamb({
             ) : (
               <div className="mt-2">
                 <button
-                  className="btn btn-success fs-4 px-3 mx-1"
+                  className="btn-card btn btn-success fs-4 px-3 mx-1"
                   onClick={() => handleAddToCart()}
                 >
                   +
                 </button>
                 <button
-                  className="btn btn-success fs-4 px-3 mx-1"
+                  className="btn-card btn btn-success fs-4 px-3 mx-1"
                   onClick={() => handleRemoveFromCart()}
                 >
                   -

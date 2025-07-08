@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
 import CardGameDamb from "./CardGameDamb";
 import ListGameDamb from "./ListGameDamb";
-import { useSearchParams } from "react-router";
 
 export default function PlatformListComponent() {
   const [showList, setShowList] = useState(true);
@@ -126,32 +125,32 @@ export default function PlatformListComponent() {
     setSearchParams(params);
   }, [genreFilter, platform, sortField, sortDirection]);
 
-  useEffect(() => {
-    const params = new URLSearchParams();
+  // useEffect(() => {
+  //   const params = new URLSearchParams();
 
-    // const params = [];
-    if (genreFilter) params.append("genre", genreFilter);
-    if (sortField) params.append("sort", sortField);
-    if (sortField && sortDirection) params.append("direction", sortDirection);
-    const queryString = params.toString();
-    const url = `http://localhost:3000/videogames${
-      queryString ? `?${queryString}` : ""
-    }`;
+  //   // const params = [];
+  //   if (genreFilter) params.append("genre", genreFilter);
+  //   if (sortField) params.append("sort", sortField);
+  //   if (sortField && sortDirection) params.append("direction", sortDirection);
+  //   const queryString = params.toString();
+  //   const url = `http://localhost:3000/videogames${
+  //     queryString ? `?${queryString}` : ""
+  //   }`;
 
-    console.log("Request URL:", url);
+  //   console.log("Request URL:", url);
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Dati ricevuti:", data.results);
-        setVideogames(data.results);
-      })
-      .catch((error) => {
-        console.error("Errore durante la ricezione dei dati", error);
-      });
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Dati ricevuti:", data.results);
+  //       setVideogames(data.results);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Errore durante la ricezione dei dati", error);
+  //     });
 
-    setSearchParams(params);
-  }, [genreFilter, sortField, sortDirection]);
+  //   setSearchParams(params);
+  // }, [genreFilter, sortField, sortDirection]);
 
   // Carica wishlist
   useEffect(() => {

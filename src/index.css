@@ -79,23 +79,11 @@ body {
 }
 
 .cardGame {
-  height: 550px;
-
-  overflow: hidden;
-}
-
-.cardGame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.cardGame {
   position: relative;
+  height: 650px;
   overflow: hidden;
   border-radius: 20px;
-  /* box-shadow: 0px 3px 10px 3px #fac803; */
+  box-shadow: 0px 3px 10px 3px #fac803;
   transition: transform 0.3s;
 }
 
@@ -126,8 +114,7 @@ body {
   align-items: center;
   padding: 2rem;
   color: #fff;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   border-radius: 20px;
@@ -180,14 +167,12 @@ body {
 }
 
 .allListTitle {
-  text-align: center;
   color: #ffcc00;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  background-color: rgba(0, 0, 0, 0.47);
-  border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 2.5);
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 .listGame {
@@ -218,6 +203,9 @@ body {
 .filter {
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 2.5);
   margin: 1rem 0;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #ffcc00;
 }
 
 .badge-amount {
@@ -273,4 +261,16 @@ body {
   background-color: rgba(255, 255, 255, 0.05);
   padding: 2rem;
   border-radius: 20px;
+}
+
+.videogames-container {
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  border-radius: 20px;
+  min-height: 100vh;
+}
+
+.wishlist-container,
+.videogames-container {
+  padding: 0 3rem;
+  max-width: 1600px;
 }

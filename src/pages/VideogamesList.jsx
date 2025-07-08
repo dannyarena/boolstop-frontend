@@ -72,15 +72,14 @@ const VideogamesList = () => {
     if (sortField) params.append("sort", sortField);
     if (sortField && sortDirection) params.append("direction", sortDirection);
     const queryString = params.toString();
-    const url = `http://localhost:3000/videogames${
-      queryString ? `?${queryString}` : ""
-    }`;
+    const url = `http://localhost:3000/videogames${queryString ? `?${queryString}` : ""}`;
 
     console.log("Request URL:", url);
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log("Dati ricevuti:", data.results);
         setVideogames(data.results);
       })
       .catch((error) => {
@@ -96,19 +95,14 @@ const VideogamesList = () => {
       ? (videogames.original_price * videogames.discount_percentage) / 100
       : 0;
   const finalPrice =
-    videogames && videogames.original_price
-      ? videogames.original_price - discount
-      : 0;
+    videogames && videogames.original_price ? videogames.original_price - discount : 0;
 
   const addToCart = () => {
     if (!videogames) return;
     const discount = videogames.discount_percentage || 0;
     const priceWithDiscount = videogames.original_price;
     const price = Number(
-      (
-        videogames.original_price -
-        (videogames.original_price * discount) / 100
-      ).toFixed(2)
+      (videogames.original_price - (videogames.original_price * discount) / 100).toFixed(2)
     );
 
     const ItemToAdd = {
@@ -172,15 +166,13 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter(
-      (platform, index, arr) => platform && arr.indexOf(platform) === index
-    );
+    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
 
   return (
     <div>
-      <div className="container">
+      <div className="videogames-container container-fluid py-5">
         <h1 className="allListTitle">SCOPRI TUTTI I NOSTRI GIOCHI</h1>
-        <div className="row justify-content-between align-items-center m-4">
+        <div className="row justify-content-between align-items-center m-5">
           <div className="col-md-3">
             <select
               id="genreFilter"
@@ -241,16 +233,16 @@ const VideogamesList = () => {
               onClick={() => setShowList((prev) => !prev)}
             >
               {showList ? (
-                <i className="bi bi-list fs-3"></i>
+                <i class="bi bi-list-ul fs-2"></i>
               ) : (
-                <i className="bi bi-layout-three-columns fs-3"></i>
+                <i class="bi bi-grid-3x3-gap fs-2"></i>
               )}
             </button>
           </div>
         </div>
 
         {showList ? (
-          <div className="row g-3">
+          <div className="row g-5">
             {videogames.map((game) => (
               <CardGameDamb
                 key={game.id}

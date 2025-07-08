@@ -27,26 +27,21 @@ export default function Wishlist() {
     localStorage.setItem("wishlist", JSON.stringify(updated));
   };
 
-  const wishlistGames = allVideogames.filter((game) =>
-    wishlistIds.includes(game.id)
-  );
+  const wishlistGames = allVideogames.filter((game) => wishlistIds.includes(game.id));
 
   return (
-    <div className="wishlist-container container py-5">
+    <div className="wishlist-container container-fluid py-5">
       <h1 className="wishlist-title text-center mb-5">La tua Wishlist</h1>
 
       {wishlistGames.length === 0 ? (
         <div className="empty-wishlist text-center text-white">
           <i className="bi bi-heart fs-1 text-danger"></i>
-          <p className="fs-4 mt-2">
-            Non hai ancora aggiunto giochi ai preferiti.
-          </p>
+          <p className="fs-4 mt-2">Non hai ancora aggiunto giochi ai preferiti.</p>
         </div>
       ) : (
         <div className="row g-5">
           {wishlistGames.map((game) => (
             <CardGameDamb
-              key={game.id}
               game={game}
               platform={false}
               isInWishlist={wishlistIds.includes(game.id)}

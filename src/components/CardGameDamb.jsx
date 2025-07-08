@@ -35,14 +35,15 @@ export default function CardGameDamb({ game, platform, isInWishlist, onToggleWis
   };
 
   return (
-    <div className="col-sm-6 col-md-4 my-4">
+    <div className="col-12 col-sm-6 col-md-4 my-4">
       <div className="cardGame" key={game.id}>
         <img className="img w-100" src={game.image} alt={game.name} />
         <div className="infoCard">
           <h5>{game.name}</h5>
           <p>{game.description}</p>
           <p>
-            <strong>Genere:</strong> {game.genres.join(", ")}
+            <strong>Genere:</strong>{" "}
+            {Array.isArray(game.genres) ? game.genres.join(", ") : game.genres}
           </p>
           <p>
             <small>Piattaforma: {game.platform}</small>

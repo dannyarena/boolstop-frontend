@@ -177,20 +177,30 @@ body {
 
 .listGame {
   list-style: none;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #ffc107;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 2.5);
-  color: #ffcc00;
+  color: #000000;
   font-size: 1.5rem;
 }
+.listGameItem {
+  padding: 0.5rem;
+  border-bottom: 1px solid #000000;
+  transition: background-color 0.3s, transform 0.3s;
+}
 
-.listGame li:hover {
+.no-link-style {
+  color: inherit;
+  text-decoration: none;
+}
+
+.listGameItem:hover {
   transform: scale(1.05);
   transition: transform 0.3s;
   cursor: pointer;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.105);
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.967);
   padding: 0.5rem;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

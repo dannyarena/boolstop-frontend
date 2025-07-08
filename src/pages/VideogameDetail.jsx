@@ -133,7 +133,6 @@ const VideogamesDetail = () => {
     fetch("http://localhost:3000/videogames")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Videogiochi correlati:", data);
         const related = data.results.filter((vg) => {
           if (vg.id === videogame.id) return false;
           const vgGenres = vg.genres.map((g) => g.trim());

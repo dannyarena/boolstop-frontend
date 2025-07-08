@@ -53,6 +53,14 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // gestione costi di spedizione
+
+  const shippingCost = 4.99;
+  const freeShippingAmount = 100;
+  const isFreeShippingCost = totalPrice >= freeShippingAmount;
+  const finalShippingCost = isFreeShippingCost ? 0 : shippingCost;
+  const finalPrice = totalPrice + finalShippingCost;
+
   return (
     <div className="container ">
       <div className="wrapper position-relative mt-5 p-4 bg-light shadow-lg rounded">
@@ -121,13 +129,28 @@ const CartPage = () => {
                 </div>
               );
             })}
-            <div>
+
+            {totalDiscount ? (
               <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-                Sconto totale: -€ {totalDiscount.toFixed(2)}
+                Sconto totale: <span>- {totalDiscount.toFixed(2)} €</span>
               </div>
-            </div>
+            ) : (
+              <></>
+            )}
+
+            {/* spese di spediione */}
+
             <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-              <h4>Totale carrello: € {totalPrice.toFixed(2)}</h4>
+              Spese di spedizione
+              {isFreeShippingCost ? (
+                <span>Spedizione gratuita</span>
+              ) : (
+                <span>{finalShippingCost.toFixed(2)}€</span>
+              )}
+            </div>
+
+            <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
+              <h4>Totale carrello: € {finalPrice.toFixed(2)}</h4>
               <button
                 className="btn btn-warning fs-5 fw-bold text-uppercase"
                 onClick={() => navigate("/formcheckout")}

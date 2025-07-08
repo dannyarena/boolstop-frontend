@@ -68,7 +68,7 @@ export default function CardGameDamb({
             {amountInCart === 0 ? (
               <button
                 className="btn btn-success p-3 mx-1"
-                onClick={() => addToCart()}
+                onClick={() => handleAddToCart()}
               >
                 <i className="bi bi-cart-plus"></i>
               </button>
@@ -76,13 +76,13 @@ export default function CardGameDamb({
               <div className="mt-2">
                 <button
                   className="btn btn-success fs-4 px-3 mx-1"
-                  onClick={() => addToCart()}
+                  onClick={() => handleAddToCart()}
                 >
                   +
                 </button>
                 <button
                   className="btn btn-success fs-4 px-3 mx-1"
-                  onClick={() => removeFromCart()}
+                  onClick={() => handleRemoveFromCart()}
                 >
                   -
                 </button>
@@ -98,10 +98,10 @@ export default function CardGameDamb({
               )}
             </div>
           </div>
+          <button className="btn btn-primary mt-4" onClick={handleBuyNow}>
+            Compra ora
+          </button>
         </div>
-        <button className="btn btn-primary mt-4" onClick={handleBuyNow}>
-          Compra ora
-        </button>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import CardGameDamb from "../components/CardGameDamb";
 import ListGameDamb from "../components/ListGameDamb";
 import { useSearchParams } from "react-router";
 import NotFoundPage from "./NotFoundPage";
-
+import { useNavigate } from "react-router-dom";
 // setFunzioni
 const VideogamesList = () => {
   const [allVideogames, setAllVideogames] = useState([]);
@@ -16,9 +16,11 @@ const VideogamesList = () => {
   const [sortDirection, setSortDirection] = useState("asc");
   const [wishlistIds, setWishlistIds] = useState([]);
   const [error, setError] = useState(false);
-
+  const [amountInCart, setAmountInCart] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
+  // logiche
   useEffect(() => {
     fetch("http://localhost:3000/videogames")
       .then((response) => response.json())
@@ -62,11 +64,6 @@ const VideogamesList = () => {
   };
 
   useEffect(() => {
-    // const genreFilter = searchParams.get("genre");
-    // const platformFilter = searchParams.get("platform");
-    // const sortField = searchParams.get("sort");
-    // const sortDirection = searchParams.get("direction");
-
     const params = new URLSearchParams();
 
     // const params = [];
@@ -93,22 +90,85 @@ const VideogamesList = () => {
     setSearchParams(params);
   }, [genreFilter, platformFilter, sortField, sortDirection]);
 
-  // useEffect(() => {
-  //   const params = {};
-  //   if (genreFilter) params.genre = genreFilter;
-  //   if (platformFilter) params.platform = platformFilter;
-  //   if (sortField) params.sort = sortField;
-  //   if (sortField && sortDirection) params.direction = sortDirection;
+  // Sposta qui tutte le funzioni e variabili che usano videogame
+  const discount =
+    videogames && videogames.discount_percentage
+      ? (videogames.original_price * videogames.discount_percentage) / 100
+      : 0;
+  const finalPrice =
+    videogames && videogames.original_price
+      ? videogames.original_price - discount
+      : 0;
 
-  //   axios
-  //     .get("http://localhost:3000/videogames", { params }) // <-- qui passi { params: { ... } }
-  //     .then((response) => {
-  //       setVideogames(response.data.results);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Errore durante la ricezione dei dati", error);
-  //     });
-  // }, [genreFilter, platformFilter, sortField, sortDirection]);
+  const addToCart = () => {
+    if (!videogames) return;
+    const discount = videogames.discount_percentage || 0;
+    const priceWithDiscount = videogames.original_price;
+    const price = Number(
+      (
+        videogames.original_price -
+        (videogames.original_price * discount) / 100
+      ).toFixed(2)
+    );
+
+    const ItemToAdd = {
+      videogame_id: videogames.id,
+      name: videogames.name,
+      original_price: videogames.original_price,
+      priceWithDiscount, // prezzo originale
+      price, // prezzo scontato
+      discount_percentage: discount,
+      image: videogames.image,
+      amount: 1,
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = cart.findIndex(
+      (item) => item.videogame_id === ItemToAdd.videogame_id
+    );
+
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].amount += 1;
+    } else {
+      cart.push(ItemToAdd);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    const item = cart.find((item) => item.videogame_id === videogames.id);
+    setAmountInCart(item ? item.amount : 0);
+  };
+
+  const removeFromCart = () => {
+    if (!videogames) return;
+    const ItemToRemove = {
+      videogame_id: videogames.id,
+      name: videogames.name,
+      price: Number(finalPrice.toFixed(2)),
+      image: videogames.image,
+      amount: 1,
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = cart.findIndex(
+      (item) => item.videogame_id === ItemToRemove.videogame_id
+    );
+
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].amount -= 1;
+      if (cart[existingItemIndex].amount === 0) {
+        cart.splice(existingItemIndex, 1);
+      }
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    const item = cart.find((item) => item.videogame_id === videogame.id);
+    setAmountInCart(item ? item.amount : 0);
+  };
+
+  const handleAddToCart = (game) => {
+    const amount = addToCart(game);
+    setAmountInCart(amount);
+  };
 
   const platforms = allVideogames
     .map((g) => g.platform)
@@ -195,6 +255,10 @@ const VideogamesList = () => {
               <CardGameDamb
                 key={game.id}
                 game={game}
+                removeFromCart={() => removeFromCart(game)}
+                addToCart={() => handleAddToCart(game)}
+                amountInCart={amountInCart}
+                buyNow={() => buyNow(game)}
                 platform={false}
                 isInWishlist={wishlistIds.includes(game.id)}
                 onToggleWishlist={handleToggleWishlist}

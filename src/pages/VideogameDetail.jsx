@@ -165,10 +165,10 @@ const VideogamesDetail = () => {
         <div className="row justify-content-around align-items-center">
           <div className="col-2">
             <img
+              id="imgDetail"
               src={`${videogame.image}`}
               alt={videogame.name}
-              className="img-fluid my-3"
-              style={{ maxWidth: "500px" }}
+              className="img-fluid my-3 "
             />
           </div>
 
@@ -180,12 +180,12 @@ const VideogamesDetail = () => {
             </p>
             {videogame.discount_percentage ? (
               <>
-                <p className="fs-5 text-decoration-line-through">
+                <p className="fs-5 text-decoration-line-through text-danger">
                   <strong>Prezzo originale: </strong>
                   {videogame.original_price} &euro;
                 </p>
                 <p>
-                  <strong className="fs-5">
+                  <strong className="fs-5 text-success">
                     <strong>Prezzo scontato: </strong>
                     {finalPrice.toFixed(2)} &euro;
                   </strong>
@@ -248,6 +248,20 @@ const VideogamesDetail = () => {
             <button className="btn btn-primary m-4 fs-5" onClick={buyNow}>
               Compra ora
               <i className="bi bi-cart-check-fill ms-2"></i>
+            </button>
+            <button
+              className="heart-button btn btn-outline-danger m-4 fs-5"
+              onClick={() => handleToggleWishlist(videogame.id)}
+            >
+              {wishlistIds.includes(videogame.id) ? (
+                <>
+                  <i className="bi bi-heart-fill"></i>
+                </>
+              ) : (
+                <>
+                  <i className="bi bi-heart"></i>
+                </>
+              )}
             </button>
           </div>
         </div>

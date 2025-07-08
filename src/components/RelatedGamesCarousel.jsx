@@ -33,8 +33,8 @@ const RelatedGamesCarousel = ({ games, wishlistIds, onToggleWishlist }) => {
   }
 
   return (
-    <div className="related-games container p-4 mt-5 rounded-5 shadow-lg">
-      <h2 className="text-center mb-4">Videogiochi Correlati</h2>
+    <div className="related-games container p-4 mt-5 rounded-5 ">
+      <h2 className="text-center mb-4 fs-1 fw-bold">Videogiochi Correlati</h2>
       <div id="carouselExampleIndicators" className="carousel slide">
         {/* Indicatori */}
         <ol className="carousel-indicators d-flex justify-content-center p-0 mb-2">
@@ -47,7 +47,8 @@ const RelatedGamesCarousel = ({ games, wishlistIds, onToggleWishlist }) => {
                 width: "12px",
                 height: "12px",
                 borderRadius: "50%",
-                backgroundColor: i === currentIndex ? "#fff" : "rgba(255, 255, 255, 0.5)",
+                backgroundColor:
+                  i === currentIndex ? "#fff" : "rgba(255, 255, 255, 0.5)",
                 cursor: "pointer",
                 display: "inline-block",
               }}
@@ -59,7 +60,10 @@ const RelatedGamesCarousel = ({ games, wishlistIds, onToggleWishlist }) => {
         {/* Carousel Inner */}
         <div className="carousel-inner">
           {games.map((game, i) => (
-            <div key={game.id} className={`carousel-item ${i === currentIndex ? "active" : ""}`}>
+            <div
+              key={game.id}
+              className={`carousel-item ${i === currentIndex ? "active" : ""}`}
+            >
               <div className="d-flex justify-content-center mb-5">
                 <CardGameDamb
                   key={game.id}
@@ -84,7 +88,10 @@ const RelatedGamesCarousel = ({ games, wishlistIds, onToggleWishlist }) => {
           }}
           style={{ cursor: "pointer" }}
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="sr-only"></span>
         </a>
         <a
@@ -97,7 +104,10 @@ const RelatedGamesCarousel = ({ games, wishlistIds, onToggleWishlist }) => {
           }}
           style={{ cursor: "pointer" }}
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="sr-only"></span>
         </a>
       </div>

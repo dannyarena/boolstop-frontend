@@ -38,45 +38,45 @@ export default function PlatformListComponent() {
   }, []);
 
   // Filtra e ordina videogiochi lato client
-  useEffect(() => {
-    const fieldMap = {
-      name: "name",
-      releaseDate: "release_date",
-      price: "original_price",
-    };
+  // useEffect(() => {
+  //   const fieldMap = {
+  //     name: "name",
+  //     releaseDate: "release_date",
+  //     price: "original_price",
+  //   };
 
-    let filtered = allVideogames;
+  //   let filtered = allVideogames;
 
-    if (genreFilter) {
-      filtered = filtered.filter(
-        (g) => g.genres && g.genres.split(", ").includes(genreFilter)
-      );
-    }
+  //   if (genreFilter) {
+  //     filtered = filtered.filter(
+  //       (g) => g.genres && g.genres.split(", ").includes(genreFilter)
+  //     );
+  //   }
 
-    if (sortField) {
-      const backendField = fieldMap[sortField] || sortField;
-      filtered = [...filtered].sort((a, b) => {
-        let aValue = a[backendField];
-        let bValue = b[backendField];
+  //   if (sortField) {
+  //     const backendField = fieldMap[sortField] || sortField;
+  //     filtered = [...filtered].sort((a, b) => {
+  //       let aValue = a[backendField];
+  //       let bValue = b[backendField];
 
-        if (backendField === "name") {
-          aValue = aValue?.toLowerCase();
-          bValue = bValue?.toLowerCase();
-        }
+  //       if (backendField === "name") {
+  //         aValue = aValue?.toLowerCase();
+  //         bValue = bValue?.toLowerCase();
+  //       }
 
-        if (backendField === "release_date") {
-          aValue = new Date(aValue).getTime();
-          bValue = new Date(bValue).getTime();
-        }
+  //       if (backendField === "release_date") {
+  //         aValue = new Date(aValue).getTime();
+  //         bValue = new Date(bValue).getTime();
+  //       }
 
-        if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
-        if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
+  //       if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+  //       if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+  //       return 0;
+  //     });
+  //   }
 
-    setVideogames(filtered);
-  }, [allVideogames, genreFilter, sortField, sortDirection]);
+  //   setVideogames(filtered);
+  // }, [allVideogames, genreFilter, sortField, sortDirection]);
   // useEffect(() => {
   //   let filtered = allVideogames;
   //   if (genreFilter) {

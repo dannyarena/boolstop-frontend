@@ -3,23 +3,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addToCart, removeFromCart } from "../utility/cartUtils";
 
-export default function CardGameDamb({
-  game,
-  platform,
-  isInWishlist,
-  onToggleWishlist,
-}) {
+export default function CardGameDamb({ game, platform, isInWishlist, onToggleWishlist }) {
   const [amountInCart, setAmountInCart] = useState(0);
   const navigate = useNavigate();
 
   if (!game) return null; // evita errori se game è undefined
 
   const discount =
-    game && game.discount_percentage
-      ? (game.original_price * game.discount_percentage) / 100
-      : 0;
-  const finalPrice =
-    game && game.original_price ? game.original_price - discount : 0;
+    game && game.discount_percentage ? (game.original_price * game.discount_percentage) / 100 : 0;
+  const finalPrice = game && game.original_price ? game.original_price - discount : 0;
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -43,7 +35,7 @@ export default function CardGameDamb({
   };
 
   return (
-    <div className="col-sm-6 col-md-4">
+    <div className="col-sm-6 col-md-4 my-4">
       <div className="cardGame" key={game.id}>
         <img className="img w-100" src={game.image} alt={game.name} />
         <div className="infoCard">
@@ -56,9 +48,7 @@ export default function CardGameDamb({
             <small>Piattaforma: {game.platform}</small>
           </p>
           <Link
-            to={
-              platform ? `/videogame/${game.slug}` : `/videogame/${game.slug}`
-            }
+            to={platform ? `/videogame/${game.slug}` : `/videogame/${game.slug}`}
             className="btn btn-warning"
           >
             Scopri
@@ -66,10 +56,7 @@ export default function CardGameDamb({
 
           <div className="d-flex justify-content-center align-items-center mt-3 gap-3">
             {amountInCart === 0 ? (
-              <button
-                className="btn btn-success p-3 mx-1"
-                onClick={() => handleAddToCart()}
-              >
+              <button className="btn btn-success p-3 mx-1" onClick={() => handleAddToCart()}>
                 <i className="bi bi-cart-plus"></i>
               </button>
             ) : (

@@ -72,7 +72,9 @@ const VideogamesList = () => {
     if (sortField) params.append("sort", sortField);
     if (sortField && sortDirection) params.append("direction", sortDirection);
     const queryString = params.toString();
-    const url = `http://localhost:3000/videogames${queryString ? `?${queryString}` : ""}`;
+    const url = `http://localhost:3000/videogames${
+      queryString ? `?${queryString}` : ""
+    }`;
 
     console.log("Request URL:", url);
 
@@ -95,14 +97,19 @@ const VideogamesList = () => {
       ? (videogames.original_price * videogames.discount_percentage) / 100
       : 0;
   const finalPrice =
-    videogames && videogames.original_price ? videogames.original_price - discount : 0;
+    videogames && videogames.original_price
+      ? videogames.original_price - discount
+      : 0;
 
   const addToCart = () => {
     if (!videogames) return;
     const discount = videogames.discount_percentage || 0;
     const priceWithDiscount = videogames.original_price;
     const price = Number(
-      (videogames.original_price - (videogames.original_price * discount) / 100).toFixed(2)
+      (
+        videogames.original_price -
+        (videogames.original_price * discount) / 100
+      ).toFixed(2)
     );
 
     const ItemToAdd = {
@@ -166,7 +173,9 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
+    .filter(
+      (platform, index, arr) => platform && arr.indexOf(platform) === index
+    );
 
   return (
     <div>

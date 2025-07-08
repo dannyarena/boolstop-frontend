@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CardGameDamb from "./CardGameDamb";
 import ListGameDamb from "./ListGameDamb";
+import { useSearchParams } from "react-router";
 
 export default function PlatformListComponent() {
   const [showList, setShowList] = useState(true);
@@ -13,14 +14,19 @@ export default function PlatformListComponent() {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
   const [wishlistIds, setWishlistIds] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { platform } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/videogames/platform/${platform}`).then((res) => {
-      setAllVideogames(res.data.results);
-      setVideogames(res.data.results);
-    });
+    axios
+      .get(`http://localhost:3000/videogames/platform/${platform}`)
+      .then((res) => {
+        console.log("gioci piattaforma:", res);
+
+        setAllVideogames(res.data.results);
+        setVideogames(res.data.results);
+      });
   }, [platform]);
 
   useEffect(() => {
@@ -30,26 +36,53 @@ export default function PlatformListComponent() {
       .catch((err) => console.error("Errore nel caricamento dei generi", err));
   }, []);
 
+  // useEffect(() => {
+  //   let filtered = allVideogames;
+  //   if (genreFilter) {
+  //     filtered = filtered.filter((g) => g.genre === genreFilter);
+  //   }
+  //   if (sortField) {
+  //     filtered = [...filtered].sort((a, b) => {
+  //       let aValue = a[sortField];
+  //       let bValue = b[sortField];
+  //       if (sortField === "name") {
+  //         aValue = aValue?.toLowerCase();
+  //         bValue = bValue?.toLowerCase();
+  //       }
+  //       if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+  //       if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+  //       return 0;
+  //     });
+  //   }
+  //   setVideogames(filtered);
+  // }, [allVideogames, genreFilter, sortField, sortDirection]);
+
   useEffect(() => {
-    let filtered = allVideogames;
-    if (genreFilter) {
-      filtered = filtered.filter((g) => g.genre === genreFilter);
-    }
-    if (sortField) {
-      filtered = [...filtered].sort((a, b) => {
-        let aValue = a[sortField];
-        let bValue = b[sortField];
-        if (sortField === "name") {
-          aValue = aValue?.toLowerCase();
-          bValue = bValue?.toLowerCase();
-        }
-        if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
-        if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
-        return 0;
+    const params = new URLSearchParams();
+
+    // const params = [];
+    if (genreFilter) params.append("genre", genreFilter);
+    if (sortField) params.append("sort", sortField);
+    if (sortField && sortDirection) params.append("direction", sortDirection);
+    const queryString = params.toString();
+    const url = `http://localhost:3000/videogames/platform/${platform}${
+      queryString ? `?${queryString}` : ""
+    }`;
+
+    console.log("Request URL:", url);
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Dati ricevuti:", data.results);
+        setVideogames(data.results);
+      })
+      .catch((error) => {
+        console.error("Errore durante la ricezione dei dati", error);
       });
-    }
-    setVideogames(filtered);
-  }, [allVideogames, genreFilter, sortField, sortDirection]);
+
+    setSearchParams(params);
+  }, [genreFilter, platform, sortField, sortDirection]);
 
   useEffect(() => {
     const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -73,7 +106,9 @@ export default function PlatformListComponent() {
     <>
       <div>
         <div className="container">
-          <h1 className="allListTitle text-uppercase">i nostri videogiochi {platform}</h1>
+          <h1 className="allListTitle text-uppercase">
+            i nostri videogiochi {platform}
+          </h1>
           <div className="row justify-content-between align-items-center m-4">
             <div className="col-md-4">
               <select

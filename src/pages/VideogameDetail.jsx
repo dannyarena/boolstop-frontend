@@ -136,7 +136,6 @@ const VideogamesDetail = () => {
         console.log("Videogiochi correlati:", data);
         const related = data.results.filter((vg) => {
           if (vg.id === videogame.id) return false;
-          console.log("Controllo generi:", vg.genres);
           const vgGenres = vg.genres.map((g) => g.trim());
           return vgGenres.some((g) => genresArray.includes(g));
         });

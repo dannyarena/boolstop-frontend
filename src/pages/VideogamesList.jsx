@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import CardGameDamb from "../components/CardGameDamb";
 import ListGameDamb from "../components/ListGameDamb";
-import axios from "axios";
 import { useSearchParams } from "react-router";
+import NotFoundPage from "./NotFoundPage";
 
 // setFunzioni
 const VideogamesList = () => {
@@ -15,6 +15,7 @@ const VideogamesList = () => {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
   const [wishlistIds, setWishlistIds] = useState([]);
+  const [error, setError] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -22,13 +23,20 @@ const VideogamesList = () => {
     fetch("http://localhost:3000/videogames")
       .then((response) => response.json())
       .then((data) => {
-        setAllVideogames(data.results);
-        setVideogames(data.results);
+        if (!data.results || data.results.length === 0) {
+          setError(true);
+        } else {
+          setAllVideogames(data.results);
+          setVideogames(data.results);
+        }
       })
       .catch((error) => {
+        setError(true);
         console.error("Errore durante la ricezione dei dati", error);
       });
   }, []);
+
+  if (error) return <NotFoundPage />;
 
   useEffect(() => {
     fetch("http://localhost:3000/genres")
@@ -67,7 +75,9 @@ const VideogamesList = () => {
     if (sortField) params.append("sort", sortField);
     if (sortField && sortDirection) params.append("direction", sortDirection);
     const queryString = params.toString();
-    const url = `http://localhost:3000/videogames${queryString ? `?${queryString}` : ""}`;
+    const url = `http://localhost:3000/videogames${
+      queryString ? `?${queryString}` : ""
+    }`;
 
     console.log("Request URL:", url);
 
@@ -102,7 +112,9 @@ const VideogamesList = () => {
 
   const platforms = allVideogames
     .map((g) => g.platform)
-    .filter((platform, index, arr) => platform && arr.indexOf(platform) === index);
+    .filter(
+      (platform, index, arr) => platform && arr.indexOf(platform) === index
+    );
 
   return (
     <div>

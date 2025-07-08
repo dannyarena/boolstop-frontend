@@ -39,15 +39,21 @@ export default function Homepage() {
   return (
     <>
       <div className="wrapper-homepage vh-100">
-        <div className="container">
+        <div className="jumbotron-container d-flex justify-content-center align-items-center">
           <div className="jumbotron">
-            <h1 className="logobool">BOOLSTOP</h1>
-            <div className="linkJumbo">
-              <Link className="nav-link" to="/videogames">
-                Tutti i Giochi
-              </Link>
+            <div className="logobool">
+              <h1 className="display-1 text-center fw-bold ">
+                BOOL<span className="text-warning">STOP</span>
+              </h1>
+              <div className="linkJumbo">
+                <Link className="nav-link" to="/videogames">
+                  Tutti i Giochi
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="container">
           <div className="logocontainer d-flex justify-content-center flex-row"></div>
           <section className="link-platforms">
             {dataPath.map((data, i) => (

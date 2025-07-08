@@ -300,3 +300,10 @@ body {
   margin: 0 auto;
   box-shadow: 0 0 50px rgba(0, 0, 0, 1.5);
 }
+
+.titleDetailGame {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 80px;
+  text-shadow: 2px 2px 80px #d7ad06;
+}

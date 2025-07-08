@@ -30,13 +30,17 @@ export default function Wishlist() {
   const wishlistGames = allVideogames.filter((game) => wishlistIds.includes(game.id));
 
   return (
-    <div className="container bg-light p-4 mt-5 rounded shadow-sm">
-      <h1 className="text-center fw-bold">WISHLIST</h1>
-      <div className="row g-3">
-        {wishlistGames.length === 0 ? (
-          <p className="text-center">La tua wishlist è vuota</p>
-        ) : (
-          wishlistGames.map((game) => (
+    <div className="wishlist-container container py-5">
+      <h1 className="wishlist-title text-center mb-5">La tua Wishlist</h1>
+
+      {wishlistGames.length === 0 ? (
+        <div className="empty-wishlist text-center text-white">
+          <i className="bi bi-heart fs-1 text-danger"></i>
+          <p className="fs-4 mt-2">Non hai ancora aggiunto giochi ai preferiti.</p>
+        </div>
+      ) : (
+        <div className="row g-4">
+          {wishlistGames.map((game) => (
             <CardGameDamb
               key={game.id}
               game={game}
@@ -44,9 +48,9 @@ export default function Wishlist() {
               isInWishlist={wishlistIds.includes(game.id)}
               onToggleWishlist={handleToggleWishlist}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

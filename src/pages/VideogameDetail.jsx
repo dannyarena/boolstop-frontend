@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CardGameDamb from "../components/CardGameDamb";
+import RelatedGamesCarousel from "../components/RelatedGamesCarousel";
 
 const VideogamesDetail = () => {
   // con slug leggiamo i parametri dinamici della rotta
@@ -54,10 +55,7 @@ const VideogamesDetail = () => {
     const discount = videogame.discount_percentage || 0;
     const priceWithDiscount = videogame.original_price;
     const price = Number(
-      (
-        videogame.original_price -
-        (videogame.original_price * discount) / 100
-      ).toFixed(2)
+      (videogame.original_price - (videogame.original_price * discount) / 100).toFixed(2)
     );
 
     const ItemToAdd = {
@@ -217,24 +215,11 @@ const VideogamesDetail = () => {
         </button>
       </div>
 
-      <div className="container bg-light p-4 mt-5 rounded-5 shadow-lg">
-        <h1 className="text-center">Videogiochi Correlati</h1>
-        <div className="row g-3">
-          {relatedGames.length === 0 ? (
-            <p className="text-center">Nessun gioco correlato trovato</p>
-          ) : (
-            relatedGames.map((game) => (
-              <CardGameDamb
-                key={game.id}
-                game={game}
-                platform={false}
-                isInWishlist={wishlistIds.includes(game.id)}
-                onToggleWishlist={handleToggleWishlist}
-              />
-            ))
-          )}
-        </div>
-      </div>
+      <RelatedGamesCarousel
+        games={relatedGames}
+        wishlistIds={wishlistIds}
+        onToggleWishlist={handleToggleWishlist}
+      />
     </>
   );
 };

@@ -246,7 +246,7 @@ export default function PlatformListComponent() {
         </div>
       </div>
 
-      {showList ? (
+      {/* {showList ? (
         <div className="row g-3">
           {videogames.map((game) => (
             <CardGameDamb
@@ -264,7 +264,7 @@ export default function PlatformListComponent() {
             <ListGameDamb key={game.id} game={game} />
           ))}
         </ul>
-      )}
+      )} */}
     </>
   );
 }

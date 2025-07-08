@@ -173,7 +173,7 @@ export default function PlatformListComponent() {
   return (
     <>
       <div>
-        <div className="container">
+        <div className="container videogames-container mt-5 ">
           <h1 className="allListTitle text-uppercase">
             i nostri videogiochi {platform}
           </h1>
@@ -225,7 +225,7 @@ export default function PlatformListComponent() {
             </div>
           </div>
           {showList ? (
-            <div className="row g-3">
+            <div className="row g-5">
               {videogames.map((game) => (
                 <CardGameDamb
                   key={game.id}

@@ -122,79 +122,77 @@ export default function PlatformListComponent() {
   };
 
   return (
-    <div className="container">
-      <div className="videogames-container container-fluid py-5 ">
-        <h1 className="allListTitle text-uppercase">
-          i nostri videogiochi {platform}
-        </h1>
-        <div className="row justify-content-between align-items-center m-4 ">
-          <div className="col-md-4">
-            <select
-              className="filter form-select bg-warning text-dark border-0 fw-bold"
-              value={genreFilter}
-              onChange={(e) => setGenreFilter(e.target.value)}
-            >
-              <option value="">Tutti i generi</option>
-              {genres.map((genre) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="col-md-4">
-            <select
-              className="filter form-select bg-warning text-dark border-0 fw-bold"
-              value={`${sortField}-${sortDirection}`}
-              onChange={(e) => {
-                const [field, direction] = e.target.value.split("-");
-                setSortField(field === "-" ? "" : field);
-                setSortDirection(direction || "asc");
-              }}
-            >
-              <option value="-">Ordina per...</option>
-              <option value="name-asc">Nome A-Z</option>
-              <option value="name-desc">Nome Z-A</option>
-              <option value="releaseDate-asc">Data di rilascio ↑</option>
-              <option value="releaseDate-desc">Data di rilascio ↓</option>
-              <option value="price-asc">Prezzo crescente</option>
-              <option value="price-desc">Prezzo decrescente</option>
-            </select>
-          </div>
-          <div className="col-md-3 d-flex justify-content-center align-items-center">
-            <button
-              className="btn btn-warning mb-3 text-uppercase fw-bold"
-              onClick={() => setShowList((prev) => !prev)}
-            >
-              {showList ? (
-                <i className="bi bi-list"></i>
-              ) : (
-                <i className="bi bi-layout-three-columns"></i>
-              )}
-            </button>
-          </div>
+    <div className="videogames-container container-fluid py-5 ">
+      <h1 className="allListTitle text-uppercase">
+        i nostri videogiochi {platform}
+      </h1>
+      <div className="row justify-content-between align-items-center m-4 ">
+        <div className="col-md-4">
+          <select
+            className="filter form-select bg-warning text-dark border-0 fw-bold"
+            value={genreFilter}
+            onChange={(e) => setGenreFilter(e.target.value)}
+          >
+            <option value="">Tutti i generi</option>
+            {genres.map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
         </div>
-
-        {showList ? (
-          <div className="row g-5 mt-3">
-            {videogames.map((game) => (
-              <CardGameDamb
-                key={game.id}
-                game={game}
-                platform={platform}
-                isInWishlist={wishlistIds.includes(game.id)}
-                onToggleWishlist={handleToggleWishlist}
-              />
-            ))}
-          </div>
-        ) : (
-          <ul className="listGame">
-            {videogames.map((game) => (
-              <ListGameDamb key={game.id} game={game} />
-            ))}
-          </ul>
-        )}
+        <div className="col-md-4">
+          <select
+            className="filter form-select bg-warning text-dark border-0 fw-bold"
+            value={`${sortField}-${sortDirection}`}
+            onChange={(e) => {
+              const [field, direction] = e.target.value.split("-");
+              setSortField(field === "-" ? "" : field);
+              setSortDirection(direction || "asc");
+            }}
+          >
+            <option value="-">Ordina per...</option>
+            <option value="name-asc">Nome A-Z</option>
+            <option value="name-desc">Nome Z-A</option>
+            <option value="releaseDate-asc">Data di rilascio ↑</option>
+            <option value="releaseDate-desc">Data di rilascio ↓</option>
+            <option value="price-asc">Prezzo crescente</option>
+            <option value="price-desc">Prezzo decrescente</option>
+          </select>
+        </div>
+        <div className="col-md-3 d-flex justify-content-center align-items-center">
+          <button
+            className="btn btn-warning mb-3 text-uppercase fw-bold"
+            onClick={() => setShowList((prev) => !prev)}
+          >
+            {showList ? (
+              <i className="bi bi-list"></i>
+            ) : (
+              <i className="bi bi-layout-three-columns"></i>
+            )}
+          </button>
+        </div>
       </div>
+
+      {showList ? (
+        <div className="row g-5 mt-3">
+          {videogames.map((game) => (
+            <CardGameDamb
+              key={game.id}
+              game={game}
+              platform={platform}
+              isInWishlist={wishlistIds.includes(game.id)}
+              onToggleWishlist={handleToggleWishlist}
+            />
+          ))}
+        </div>
+      ) : (
+        <ul className="listGame">
+          {videogames.map((game) => (
+            <ListGameDamb key={game.id} game={game} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

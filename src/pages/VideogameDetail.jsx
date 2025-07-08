@@ -163,16 +163,16 @@ const VideogamesDetail = () => {
       <div className="videogames-container mt-5 text-center text-white">
         <h1 className="titleDetailGame fw-bold p-5 ">{videogame.name}</h1>
         <div className="row justify-content-around align-items-center">
-          <div className="col-2">
+          <div className="col-12 col-md-6 ">
             <img
               id="imgDetail"
               src={`${videogame.image}`}
               alt={videogame.name}
-              className="img-fluid my-3 "
+              className=" my-3 "
             />
           </div>
 
-          <div className="col-6 ">
+          <div className="col-12 col-md-6 ">
             <h4 className="fs-2 mb-4">{videogame.description}</h4>
             <p className="fs-5">
               <strong>Genere: </strong>

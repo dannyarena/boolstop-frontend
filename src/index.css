@@ -373,6 +373,8 @@ body::before {
 }
 
 .cart-card-img {
+  margin-top: 1rem;
+  border-radius: 20px;
   height: 300px !important;
 }
 
@@ -388,7 +390,7 @@ body::before {
 
 .cart-add-remove {
   border: none;
-  padding: 10px 20px;
+  padding: 10px 30px;
   font-size: 1.5rem;
   border-radius: 12px;
   transition: all 0.2s ease;
@@ -407,4 +409,8 @@ body::before {
   border-radius: 12px;
   transition: all 0.2s ease;
   box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+}
+
+.cart-remove:hover {
+  transform: scale(1.05);
 }

@@ -65,7 +65,7 @@ export default function OrderRecapPage() {
           </p>
           {/* <p>Metodo di pagamento: {order.paymentMethod}</p> */}
           <p className="mt-3 fs-5">
-            Totale: <span className="fw-bold">€ {totalPrice}</span>
+            Totale: <span className="fw-bold">€ {totalPrice.toFixed(2)}</span>
           </p>
         </div>
         <div className="d-flex justify-content-between align-items-center gap-3">

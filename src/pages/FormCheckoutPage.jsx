@@ -79,15 +79,10 @@ export default function FormCheckoutPage() {
   const order = JSON.parse(localStorage.getItem("order")) || {};
 
   const discountedPrice = totalPrice * (1 - valueDiscount / 100);
+  const shippingCost = discountedPrice <= 100 ? 4.99 : 0;
 
-  const totalwithshippingPrice = totalPrice + parseFloat(order.shippingCost);
-  const totaldiscountWithShippingPrice =
-    discountedPrice <= 100
-      ? discountedPrice + 4.99
-      : discountedPrice + parseFloat(order.shippingCost);
-
-  console.log("Total Price:", totalPrice);
-  console.log("Total with shipping Price:", totaldiscountWithShippingPrice);
+  //  calcolo del totale
+  const totalWithShipping = discountedPrice + shippingCost;
 
   return (
     <>
@@ -211,15 +206,17 @@ export default function FormCheckoutPage() {
                     Sconto applicato: -€ {totalDiscount.toFixed(2)}
                   </li>
                 )}
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  {shippingCost > 0 ? (
+                    <span>Spedizione: € {shippingCost.toFixed(2)}</span>
+                  ) : (
+                    <span>Spedizione gratuita</span>
+                  )}
+                </li>
 
                 <li className="list-group-item d-flex justify-content-between align-items-center fw-bold">
                   Totale
-                  <span>
-                    €{" "}
-                    {valueDiscount
-                      ? totaldiscountWithShippingPrice.toFixed(2)
-                      : totalwithshippingPrice.toFixed(2)}
-                  </span>
+                  <span>€{totalWithShipping.toFixed(2)}</span>
                 </li>
               </ul>
             )}

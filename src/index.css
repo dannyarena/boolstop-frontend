@@ -414,3 +414,139 @@ body::before {
 .cart-remove:hover {
   transform: scale(1.05);
 }
+
+.checkout .form-control {
+  padding: 0.6rem 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1.2rem;
+  border-radius: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.checkout .form-control:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 8px #ffcc00aa;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.checkout .form-label {
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+
+.checkout .btn-warning {
+  box-shadow: 0 4px 12px #ffcc00aa;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checkout .btn-warning:hover,
+.checkout .btn-warning:focus {
+  background-color: #e6b800;
+  color: #000;
+  box-shadow: 0 6px 20px #ffcc0088;
+  outline: none;
+}
+
+.checkout .input-group > .form-control {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.checkout .input-group > .btn-warning {
+  padding: 0.6rem 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1.2rem;
+  border-radius: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.checkout .alert-danger {
+  background-color: #661111;
+  color: #ffcccc;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 0 8px #ff4444aa;
+}
+
+.checkout .form-control:hover {
+  background-color: #2a2a2a;
+}
+
+.checkout .input-group > .btn-warning:hover,
+.checkout .input-group > .btn-warning:focus {
+  background-color: #e6b800;
+  color: #000;
+  box-shadow: 0 0 8px #ffcc00cc;
+}
+
+.order-summary {
+  border: 2px solid #ffcc00;
+  border-radius: 20px;
+  background: radial-gradient(circle at center, #111111dc 0%, #000 100%);
+  padding: 1.5rem;
+}
+
+.summary-title {
+  color: #ffcc00;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.order-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+  color: #fff;
+}
+
+.item-name {
+  font-size: 0.95rem;
+}
+
+.quantity-badge {
+  background-color: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.item-price {
+  font-weight: 600;
+}
+
+.discount-item {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff4d4d;
+  font-weight: bold;
+  border: none;
+}
+
+.shipping-item {
+  background: transparent;
+  color: #ccc;
+  border: none;
+}
+
+.total-item {
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: none;
+}
+
+.total-badge {
+  color: black;
+  border: 2px solid #ffcc00;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+}

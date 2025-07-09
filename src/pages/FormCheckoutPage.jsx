@@ -82,9 +82,9 @@ export default function FormCheckoutPage() {
 
   const order = JSON.parse(localStorage.getItem("order")) || {};
 
-  const discountedPrice = totalPrice - totalDiscount;
+  const discountedPrice = totalPrice - discountFromCode;
   const shippingCost = discountedPrice <= 100 ? 4.99 : 0;
-  const totalWithShipping = totalPrice + shippingCost;
+  const totalWithShipping = discountedPrice + shippingCost;
 
   return (
     <div className="checkout container py-5">

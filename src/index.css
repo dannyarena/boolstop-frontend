@@ -276,7 +276,7 @@ body::before {
 }
 
 .discounted-games {
-  background: radial-gradient(circle at center, #111111dc 0%, #000 0%);
+  background: radial-gradient(circle at center, #111111dc 0%, #000 100%);
   border-radius: 50px;
 }
 

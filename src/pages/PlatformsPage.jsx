@@ -5,7 +5,7 @@ export default function PlatformsPage() {
   const { platform } = useParams();
   return (
     <>
-      <div className="container">
+      <div className="vidoegames-container container-fluid">
         <PlatformListComponent />
       </div>
     </>

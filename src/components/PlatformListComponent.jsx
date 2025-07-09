@@ -14,19 +14,18 @@ export default function PlatformListComponent() {
   const [sortDirection, setSortDirection] = useState("asc");
   const [wishlistIds, setWishlistIds] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [amountInCart, setAmountInCart] = useState(0);
 
   const { platform } = useParams();
 
   // Carica TUTTI i videogiochi della piattaforma (senza filtri)
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/videogames/platform/${platform}`)
-      .then((res) => {
-        console.log("gioci piattaforma:", res);
+    axios.get(`http://localhost:3000/videogames/platform/${platform}`).then((res) => {
+      console.log("gioci piattaforma:", res);
 
-        setAllVideogames(res.data.results);
-        setVideogames(res.data.results);
-      });
+      setAllVideogames(res.data.results);
+      setVideogames(res.data.results);
+    });
   }, [platform]);
 
   // Carica generi
@@ -171,79 +170,79 @@ export default function PlatformListComponent() {
   };
 
   return (
-    <>
-      <div>
-        <div className="container videogames-container mt-5 ">
-          <h1 className="allListTitle text-uppercase">
-            i nostri videogiochi {platform}
-          </h1>
-          <div className="row justify-content-between align-items-center m-4">
-            <div className="col-md-4">
-              <select
-                className="filter form-select bg-warning text-dark border-0 fw-bold"
-                value={genreFilter}
-                onChange={(e) => setGenreFilter(e.target.value)}
-              >
-                <option value="">Tutti i generi</option>
-                {genres.map((genre) => (
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-md-4">
-              <select
-                className="filter form-select bg-warning text-dark border-0 fw-bold"
-                value={`${sortField}-${sortDirection}`}
-                onChange={(e) => {
-                  const [field, direction] = e.target.value.split("-");
-                  setSortField(field);
-                  setSortDirection(direction);
-                }}
-              >
-                <option value="-">Ordina per...</option>
-                <option value="name-asc">Nome A-Z</option>
-                <option value="name-desc">Nome Z-A</option>
-                <option value="releaseDate-asc">Data di rilascio ↑</option>
-                <option value="releaseDate-desc">Data di rilascio ↓</option>
-                <option value="price-asc">Prezzo crescente</option>
-                <option value="price-desc">Prezzo decrescente</option>
-              </select>
-            </div>
-            <div className="col-md-3 bottonContainer d-flex justify-content-center align-items-center">
-              <button
-                className="btn btn-warning mb-3 text-uppercase fw-bold"
-                onClick={() => setShowList((prev) => !prev)}
-              >
-                {showList ? (
-                  <i className="bi bi-list-ul fs-5"></i>
-                ) : (
-                  <i className="bi bi-layout-three-columns"></i>
-                )}
-              </button>
-            </div>
+    <div>
+      <div className="videogames-container container-fluid py-5">
+        <h1 className="allListTitle text-uppercase">i nostri videogiochi {platform}</h1>
+        <div className="row justify-content-between align-items-center m-5">
+          <div className="col-md-4">
+            <select
+              className="filter form-select bg-warning text-dark border-0 fw-bold fs-4"
+              value={genreFilter}
+              onChange={(e) => setGenreFilter(e.target.value)}
+            >
+              <option value="">Tutti i generi</option>
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
           </div>
-          {showList ? (
-            <div className="row g-5 mt-3">
-              {videogames.map((game) => (
-                <CardGameDamb
-                  key={game.id}
-                  game={game}
-                  platform={platform}
-                  isInWishlist={wishlistIds.includes(game.id)}
-                  onToggleWishlist={handleToggleWishlist}
-                />
-              ))}
-            </div>
-          ) : (
-            <ul className="listGame">
-              {videogames.map((game) => (
-                <ListGameDamb key={game.id} game={game} />
-              ))}
-            </ul>
-          )}
+          <div className="col-md-4">
+            <select
+              className="filter form-select bg-warning text-dark border-0 fw-bold fs-4"
+              value={`${sortField}-${sortDirection}`}
+              onChange={(e) => {
+                const [field, direction] = e.target.value.split("-");
+                setSortField(field);
+                setSortDirection(direction);
+              }}
+            >
+              <option value="-">Ordina per...</option>
+              <option value="name-asc">Nome A-Z</option>
+              <option value="name-desc">Nome Z-A</option>
+              <option value="releaseDate-asc">Data di rilascio ↑</option>
+              <option value="releaseDate-desc">Data di rilascio ↓</option>
+              <option value="price-asc">Prezzo crescente</option>
+              <option value="price-desc">Prezzo decrescente</option>
+            </select>
+          </div>
+          <div className="col-md-3 bottonContainer d-flex justify-content-center align-items-center">
+            <button
+              className="btn btn-warning text-uppercase fw-bold"
+              onClick={() => setShowList((prev) => !prev)}
+            >
+              {showList ? (
+                <i class="bi bi-list-ul fs-2"></i>
+              ) : (
+                <i class="bi bi-grid-3x3-gap fs-2"></i>
+              )}
+            </button>
+          </div>
         </div>
+        {showList ? (
+          <div className="row g-5">
+            {videogames.map((game) => (
+              <CardGameDamb
+                key={game.id}
+                game={game}
+                removeFromCart={() => removeFromCart(game)}
+                addToCart={() => handleAddToCart(game)}
+                amountInCart={amountInCart}
+                buyNow={() => buyNow(game)}
+                platform={false}
+                isInWishlist={wishlistIds.includes(game.id)}
+                onToggleWishlist={handleToggleWishlist}
+              />
+            ))}
+          </div>
+        ) : (
+          <ul className="listGame">
+            {videogames.map((game) => (
+              <ListGameDamb key={game.id} game={game} />
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* {showList ? (
@@ -265,6 +264,6 @@ export default function PlatformListComponent() {
           ))}
         </ul>
       )} */}
-    </>
+    </div>
   );
 }

@@ -373,8 +373,7 @@ body::before {
 }
 
 .cart-card-img {
-  height: 650px !important;
-  object-fit: cover;
+  height: 300px !important;
 }
 
 .btn-order {
@@ -389,8 +388,8 @@ body::before {
 
 .cart-add-remove {
   border: none;
-  padding: 0.5rem 2.5rem;
-  font-size: 2rem;
+  padding: 10px 20px;
+  font-size: 1.5rem;
   border-radius: 12px;
   transition: all 0.2s ease;
   box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
@@ -403,8 +402,8 @@ body::before {
 .cart-remove {
   background-color: #dc3545;
   border: none;
-  padding: 0.5rem 2.5rem;
-  font-size: 2rem;
+  padding: 10px 20px;
+  font-size: 1.5rem;
   border-radius: 12px;
   transition: all 0.2s ease;
   box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);

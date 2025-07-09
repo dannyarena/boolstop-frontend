@@ -85,144 +85,284 @@ export default function FormCheckoutPage() {
   const totalWithShipping = discountedPrice + shippingCost;
 
   return (
-    <>
-      <div className="container mt-5">
-        <div className="container mt-5">
-          <form
-            onSubmit={handleFormSubmit}
-            className="bg-light p-4 rounded shadow-sm"
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-6 mb-4">
+          <div
+            className="card shadow-sm"
+            style={{
+              border: "2px solid #ffcc00",
+              borderRadius: 20,
+              background:
+                "radial-gradient(circle at center, #111111dc 0%, #000 100%)",
+            }}
           >
-            <h2 className="mb-4 text-center">Checkout</h2>
-            <div className="mb-3">
-              <label htmlFor="customer_name" className="form-label">
-                Nome
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="customer_name"
-                name="customer_name"
-                placeholder="Inserisci il tuo nome"
-                value={formData.customer_name}
-                onChange={handleInputChange}
-                required
+            <div className="card-body" style={{ borderRadius: 20 }}>
+              <h2
+                className="mb-4 text-center"
+                style={{ color: "#ffcc00", fontWeight: 700 }}
+              >
+                Checkout
+              </h2>
+              <form onSubmit={handleFormSubmit}>
+                <div className="row g-3">
+                  <div className="col-md-6">
+                    <label
+                      htmlFor="customer_name"
+                      className="form-label"
+                      style={{ color: "#ffcc00", fontWeight: 600 }}
+                    >
+                      Nome
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{
+                        background: "#222",
+                        color: "#fff",
+                        border: "1px solid #ffcc00",
+                      }}
+                      id="customer_name"
+                      name="customer_name"
+                      placeholder="Inserisci il tuo nome"
+                      value={formData.customer_name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label
+                      htmlFor="customer_surname"
+                      className="form-label"
+                      style={{ color: "#ffcc00", fontWeight: 600 }}
+                    >
+                      Cognome
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{
+                        background: "#222",
+                        color: "#fff",
+                        border: "1px solid #ffcc00",
+                      }}
+                      id="customer_surname"
+                      name="customer_surname"
+                      placeholder="Inserisci il tuo cognome"
+                      value={formData.customer_surname}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12">
+                    <label
+                      htmlFor="shipping_address"
+                      className="form-label"
+                      style={{ color: "#ffcc00", fontWeight: 600 }}
+                    >
+                      Indirizzo di spedizione
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{
+                        background: "#222",
+                        color: "#fff",
+                        border: "1px solid #ffcc00",
+                      }}
+                      id="shipping_address"
+                      name="shipping_address"
+                      placeholder="Via, numero civico, città"
+                      value={formData.shipping_address}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12">
+                    <label
+                      htmlFor="customer_email"
+                      className="form-label"
+                      style={{ color: "#ffcc00", fontWeight: 600 }}
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      style={{
+                        background: "#222",
+                        color: "#fff",
+                        border: "1px solid #ffcc00",
+                      }}
+                      id="customer_email"
+                      name="customer_email"
+                      placeholder="esempio@email.com"
+                      value={formData.customer_email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-warning w-100 mt-4 mb-2"
+                  style={{
+                    backgroundColor: "#ffcc00",
+                    color: "#000",
+                    fontWeight: "bold",
+                    border: "none",
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  Invia ordine
+                </button>
+              </form>
+              <hr
+                className="my-4"
+                style={{ borderColor: "#ffcc00", opacity: 0.5 }}
               />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="customer_surname" className="form-label">
-                Cognome
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="customer_surname"
-                name="customer_surname"
-                placeholder="Inserisci il tuo cognome"
-                value={formData.customer_surname}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="shipping_address" className="form-label">
-                Indirizzo di spedizione
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="shipping_address"
-                name="shipping_address"
-                placeholder="Via, numero civico, città"
-                value={formData.shipping_address}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="customer_email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="customer_email"
-                name="customer_email"
-                placeholder="esempio@email.com"
-                value={formData.customer_email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <button type="submit" className="btn btn-success w-100">
-              Invia ordine
-            </button>
-          </form>
-
-          <form onSubmit={handleValidationDiscount}>
-            <div className="mb-3">
-              <label htmlFor="shipping_address" className="form-label">
-                codice sconto
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="discount_code_name"
-                name="discount_code_name"
-                placeholder="inserisci codice sconto"
-                value={formData.discount_code_name}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button className="btn btn-primary">verifica</button>
-          </form>
-
-          {/* Riepilogo ordine */}
-          <div className="mb-4">
-            <h4 className="mb-3">Riepilogo ordine</h4>
-            {cart.length === 0 ? (
-              <div className="alert alert-warning">Il carrello è vuoto.</div>
-            ) : (
-              <ul className="list-group mb-3">
-                {cart.map((item) => (
-                  <li
-                    key={item.videogame_id}
-                    className="list-group-item d-flex justify-content-between align-items-center"
+              <form onSubmit={handleValidationDiscount} className="mb-3">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{
+                      background: "#222",
+                      color: "#fff",
+                      border: "1px solid #ffcc00",
+                    }}
+                    id="discount_code_name"
+                    name="discount_code_name"
+                    placeholder="Inserisci codice sconto"
+                    value={formData.discount_code_name}
+                    onChange={handleInputChange}
+                  />
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    style={{
+                      backgroundColor: "#ffcc00",
+                      color: "#000",
+                      fontWeight: "bold",
+                      border: "none",
+                    }}
                   >
-                    <span>
-                      {item.name}{" "}
-                      <span className="badge bg-secondary ms-2">
-                        x{item.amount}
-                      </span>
-                    </span>
-                    <span>€ {Number(item.price).toFixed(2)}</span>
-                  </li>
-                ))}
-                {totalDiscount > 0 && (
-                  <li className="list-group-item d-flex justify-content-between align-items-center text-danger">
-                    Sconto applicato: -€ {totalDiscount.toFixed(2)}
-                  </li>
+                    Verifica
+                  </button>
+                </div>
+                {messageError && (
+                  <div className="alert alert-danger mt-2" role="alert">
+                    {messageError}
+                  </div>
                 )}
-                <li className="list-group-item d-flex justify-content-between align-items-center">
-                  {shippingCost > 0 ? (
-                    <span>Spedizione: € {shippingCost.toFixed(2)}</span>
-                  ) : (
-                    <span>Spedizione gratuita</span>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-5">
+          <div
+            className="card shadow-sm"
+            style={{
+              border: "2px solid #ffcc00",
+              borderRadius: 20,
+              background:
+                "radial-gradient(circle at center, #111111dc 0%, #000 100%)",
+            }}
+          >
+            <div className="card-body" style={{ borderRadius: 20 }}>
+              <h4
+                className="mb-3 text-center"
+                style={{ color: "#ffcc00", fontWeight: 700 }}
+              >
+                Riepilogo ordine
+              </h4>
+              {cart.length === 0 ? (
+                <div className="alert alert-warning text-center">
+                  Il carrello è vuoto.
+                </div>
+              ) : (
+                <ul className="list-group mb-3">
+                  {cart.map((item) => (
+                    <li
+                      key={item.videogame_id}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        color: "#fff",
+                        border: "none",
+                      }}
+                    >
+                      <span>
+                        {item.name}{" "}
+                        <span
+                          className="badge"
+                          style={{
+                            backgroundColor: "#ffcc00",
+                            color: "#000",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          x{item.amount}
+                        </span>
+                      </span>
+                      <span>€ {Number(item.price).toFixed(2)}</span>
+                    </li>
+                  ))}
+                  {totalDiscount > 0 && (
+                    <li
+                      className="list-group-item d-flex justify-content-between align-items-center text-danger"
+                      style={{
+                        background: "rgba(255,255,255,0.03)",
+                        border: "none",
+                      }}
+                    >
+                      Sconto applicato:{" "}
+                      <span>-€ {totalDiscount.toFixed(2)}</span>
+                    </li>
                   )}
-                </li>
-
-                <li className="list-group-item d-flex justify-content-between align-items-center fw-bold">
-                  Totale
-                  <span>€{totalWithShipping.toFixed(2)}</span>
-                </li>
-              </ul>
-            )}
+                  <li
+                    className="list-group-item d-flex justify-content-between align-items-center"
+                    style={{
+                      background: "rgba(255,255,255,0.03)",
+                      color: "#fff",
+                      border: "none",
+                    }}
+                  >
+                    {shippingCost > 0 ? (
+                      <span>Spedizione: € {shippingCost.toFixed(2)}</span>
+                    ) : (
+                      <span>Spedizione gratuita</span>
+                    )}
+                  </li>
+                  <li
+                    className="list-group-item d-flex justify-content-between align-items-center fw-bold"
+                    style={{
+                      background: "#ffcc00",
+                      color: "#000",
+                      fontSize: "1.3rem",
+                      border: "none",
+                    }}
+                  >
+                    Totale
+                    <span
+                      className="badge"
+                      style={{
+                        backgroundColor: "#fff",
+                        color: "#ffcc00",
+                        fontWeight: "bold",
+                        fontSize: "1.3rem",
+                        border: "2px solid #ffcc00",
+                      }}
+                    >
+                      €{totalWithShipping.toFixed(2)}
+                    </span>
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

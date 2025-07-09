@@ -61,6 +61,13 @@ const CartPage = () => {
   const finalShippingCost = isFreeShippingCost ? 0 : shippingCost;
   const finalPrice = totalPrice + finalShippingCost;
 
+  localStorage.setItem(
+    "order",
+    JSON.stringify({
+      shippingCost: finalShippingCost.toFixed(2),
+      totalPrice: finalPrice.toFixed(2),
+    })
+  );
   return (
     <div className="container ">
       <div className="wrapper position-relative mt-5 p-4 bg-light shadow-lg rounded">

@@ -76,7 +76,18 @@ export default function FormCheckoutPage() {
     0
   );
 
+  const order = JSON.parse(localStorage.getItem("order")) || {};
+
   const discountedPrice = totalPrice * (1 - valueDiscount / 100);
+
+  const totalwithshippingPrice = totalPrice + parseFloat(order.shippingCost);
+  const totaldiscountWithShippingPrice =
+    discountedPrice <= 100
+      ? discountedPrice + 4.99
+      : discountedPrice + parseFloat(order.shippingCost);
+
+  console.log("Total Price:", totalPrice);
+  console.log("Total with shipping Price:", totaldiscountWithShippingPrice);
 
   return (
     <>
@@ -206,8 +217,8 @@ export default function FormCheckoutPage() {
                   <span>
                     €{" "}
                     {valueDiscount
-                      ? discountedPrice.toFixed(2)
-                      : totalPrice.toFixed(2)}
+                      ? totaldiscountWithShippingPrice.toFixed(2)
+                      : totalwithshippingPrice.toFixed(2)}
                   </span>
                 </li>
               </ul>

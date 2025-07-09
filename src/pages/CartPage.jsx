@@ -46,9 +46,7 @@ const CartPage = () => {
   };
 
   const handleRemove = (videogame_id) => {
-    const updatedCart = cartItems.filter(
-      (item) => item.videogame_id !== videogame_id
-    );
+    const updatedCart = cartItems.filter((item) => item.videogame_id !== videogame_id);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -69,97 +67,110 @@ const CartPage = () => {
     })
   );
   return (
-    <div className="container ">
-      <div className="wrapper position-relative mt-5 p-4 bg-light shadow-lg rounded">
+    <>
+      <div className="wrapper container-fluid position-relative p-4">
         <button
-          className="btn btn-warning position-absolute top-0 end-0 m-2 fs-5 fw-bold"
+          className="btn btn-warning position-absolute top-0 end-0 m-2 fs-5 fw-bold mt-4 me-3"
           onClick={() => navigate("/videogames")}
         >
           Continua a fare acquisti
           <i className="bi bi-arrow-right fs-5 ms-2"></i>
         </button>
-        <h2 className="text-center fs-1 ">IL TUO CARRELLO</h2>
+
+        <h2 className="text-center fs-1 mb-4 fw-bold">IL TUO CARRELLO</h2>
         <hr />
 
         {cartItems.length === 0 ? (
-          <p className="text-center fs-5 fw-bold  ">Il carrello è vuoto.</p>
+          <p className="text-center fs-2 fw-bold mt-5">Il carrello è vuoto.</p>
         ) : (
-          <div className="row justify-content-left align-items-center g-4">
-            {cartItems.map((item) => {
-              return (
-                <div className="col-md-4" key={item.videogame_id}>
-                  <div className="card  bg-light shadow-sm border-0 rounded h-100 ">
-                    <img
-                      src={`${item.image}`}
-                      alt={item.name}
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{item.name}</h5>
-                      {item.discount_percentage ? (
-                        <>
-                          <p>
-                            prezzo originale: €{" "}
-                            <span className="card-text text-decoration-line-through">
-                              {item.priceWithDiscount}
-                            </span>
-                          </p>
-                          <p className="card-text">Prezzo: € {item.price}</p>
-                        </>
-                      ) : (
-                        <p className="card-text">Prezzo: € {item.price}</p>
-                      )}
+          <div className="row">
+            <div className="col-md-12">
+              <div className="row g-4">
+                {cartItems.map((item) => (
+                  <div className="col-md-6 col-xl-4" key={item.videogame_id}>
+                    <div className="cart-card card bg-opacity-75 text-white shadow rounded-4 h-100">
+                      <img
+                        src={`${item.image}`}
+                        alt={item.name}
+                        className="cart-card-img card-img-top rounded-top"
+                        style={{ height: "200px", objectFit: "cover" }}
+                      />
+                      <div className="card-body d-flex flex-column justify-content-between">
+                        <div>
+                          <h2 className="card-title text-warning text-center">{item.name}</h2>
+                          {item.discount_percentage ? (
+                            <>
+                              <p className="mb-1 text-center">
+                                <span className="text-decoration-line-through text-danger fs-5">
+                                  € {item.priceWithDiscount}
+                                </span>
+                              </p>
+                              <p className="mb-2 fs-2 text-success text-center fw-bold">
+                                € {item.price}
+                              </p>
+                            </>
+                          ) : (
+                            <p className="mb-2 fs-3 text-center">€ {item.price}</p>
+                          )}
+                          <p className="mb-3 fs-4">Quantità: {item.amount}</p>
+                        </div>
 
-                      <p className="card-text">Quantità: {item.amount}</p>
-                      <button
-                        className="btn  btn-success me-2 fs-1 fw-bold border-0  "
-                        onClick={() => handleIncrease(item.videogame_id)}
-                      >
-                        {" "}
-                        +
-                      </button>
-                      <button
-                        className="btn btn-success me-2 fs-1 fw-bold border-0"
-                        onClick={() => handleDecrease(item.videogame_id)}
-                      >
-                        {" "}
-                        -
-                      </button>
-                      <button
-                        className="btn  btn-danger me-2 fs-4  border-0"
-                        onClick={() => handleRemove(item.videogame_id)}
-                      >
-                        Rimuovi
-                      </button>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <button
+                            className="cart-add-remove btn btn-success fw-bold"
+                            onClick={() => handleIncrease(item.videogame_id)}
+                          >
+                            +
+                          </button>
+                          <button
+                            className="cart-add-remove btn btn-success fw-bold"
+                            onClick={() => handleDecrease(item.videogame_id)}
+                          >
+                            -
+                          </button>
+                          <button
+                            className="cart-remove btn btn-danger fw-bold"
+                            onClick={() => handleRemove(item.videogame_id)}
+                          >
+                            Rimuovi
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-
-            {totalDiscount ? (
-              <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-                Sconto totale: <span>- {totalDiscount.toFixed(2)} €</span>
+                ))}
               </div>
-            ) : (
-              <></>
-            )}
-
-            {/* spese di spediione */}
-
-            <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-              Spese di spedizione
-              {isFreeShippingCost ? (
-                <span>Spedizione gratuita</span>
-              ) : (
-                <span>{finalShippingCost.toFixed(2)}€</span>
-              )}
             </div>
 
-            <div className="bg-light rounded p-4 mt-4 d-flex justify-content-between align-items-center">
-              <h4>Totale carrello: € {finalPrice.toFixed(2)}</h4>
+            <div
+              className="cart-recap bg-opacity-75 text-white rounded-4 shadow p-4 sticky-top my-5"
+              style={{ top: "100px" }}
+            >
+              <h4 className="text-warning mb-4 text-center">Riepilogo Ordine</h4>
+
+              {totalDiscount ? (
+                <div className="d-flex justify-content-between mb-3 fs-3">
+                  <span>Sconto Totale:</span>
+                  <span className="text-success">- € {totalDiscount.toFixed(2)}</span>
+                </div>
+              ) : null}
+
+              <div className="d-flex justify-content-between mb-3 fs-3">
+                <span>Spese di spedizione:</span>
+                <span>
+                  {isFreeShippingCost ? "Spedizione gratuita" : `${finalShippingCost.toFixed(2)}€`}
+                </span>
+              </div>
+
+              <hr className="border-light" />
+
+              <div className="total-cart d-flex justify-content-between align-items-center mb-4">
+                <strong>Totale:</strong>
+                <h5 className="text-warning fs-2">€ {finalPrice.toFixed(2)}</h5>
+              </div>
+
               <button
-                className="btn btn-warning fs-5 fw-bold text-uppercase"
+                className="btn-order btn btn-warning w-100 fw-bold text-uppercase fs-3"
                 onClick={() => navigate("/formcheckout")}
                 disabled={cartItems.length === 0}
               >
@@ -169,7 +180,7 @@ const CartPage = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

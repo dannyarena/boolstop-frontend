@@ -81,11 +81,13 @@ const CartPage = () => {
         <hr />
 
         <div className="row">
-          <div className="col-12 col-lg-9">
-            {" "}
-            {cartItems.length === 0 ? (
+          {" "}
+          {cartItems.length === 0 ? (
+            <div className="col-12">
               <p className="text-center fs-2 fw-bold mt-5">Il carrello è vuoto.</p>
-            ) : (
+            </div>
+          ) : (
+            <div className="col-12 col-lg-9">
               <div className="row">
                 <div className="col-md-12">
                   <div className="row g-4">
@@ -148,49 +150,53 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
-          <div className="col-12 col-lg-3">
-            <div
-              className="cart-recap bg-opacity-75 text-white rounded-4 shadow p-4 sticky-top my-5"
-              style={{ top: "100px" }}
-            >
-              <h4 className="text-warning mb-4 text-center fs-2 fw-bold">Riepilogo Ordine</h4>
-
-              {totalDiscount ? (
-                <div className="d-flex justify-content-between align-items-center mb-3 fs-4">
-                  <span>Sconto Totale:</span>
-                  <span className="text-success fs-3 fw-bold">- € {totalDiscount.toFixed(2)}</span>
-                </div>
-              ) : null}
-
-              {isFreeShippingCost ? (
-                <div className="d-flex justify-content-center align-items-center fs-4">
-                  <p className="text-success fw-bold">Spedizione gratuita</p>
-                </div>
-              ) : (
-                <div className="d-flex justify-content-between fs-4 py-2">
-                  <span>Spese di spedizione:</span>
-                  <span>€ {finalShippingCost.toFixed(2)}</span>
-                </div>
-              )}
-
-              <hr className="border-light" />
-
-              <div className="total-cart d-flex justify-content-between align-items-center mb-4">
-                <strong>Totale:</strong>
-                <h5 className="text-warning fs-1 fw-bold">€ {finalPrice.toFixed(2)}</h5>
-              </div>
-
-              <button
-                className="btn-order btn btn-warning w-100 fw-bold text-uppercase fs-4"
-                onClick={() => navigate("/formcheckout")}
-                disabled={cartItems.length === 0}
-              >
-                Procedi all'ordine
-              </button>
             </div>
-          </div>
+          )}
+          {cartItems.length > 0 && (
+            <div className="col-12 col-lg-3">
+              <div
+                className="cart-recap bg-opacity-75 text-white rounded-4 shadow p-4 sticky-top my-5"
+                style={{ top: "100px" }}
+              >
+                <h4 className="text-warning mb-4 text-center fs-2 fw-bold">Riepilogo Ordine</h4>
+
+                {totalDiscount ? (
+                  <div className="d-flex justify-content-between align-items-center mb-3 fs-4">
+                    <span>Sconto Totale:</span>
+                    <span className="text-success fs-3 fw-bold">
+                      - € {totalDiscount.toFixed(2)}
+                    </span>
+                  </div>
+                ) : null}
+
+                {isFreeShippingCost ? (
+                  <div className="d-flex justify-content-center align-items-center fs-4">
+                    <p className="text-success fw-bold">Spedizione gratuita</p>
+                  </div>
+                ) : (
+                  <div className="d-flex justify-content-between fs-4 py-2">
+                    <span>Spese di spedizione:</span>
+                    <span>€ {finalShippingCost.toFixed(2)}</span>
+                  </div>
+                )}
+
+                <hr className="border-light" />
+
+                <div className="total-cart d-flex justify-content-between align-items-center mb-4">
+                  <strong>Totale:</strong>
+                  <h5 className="text-warning fs-1 fw-bold">€ {finalPrice.toFixed(2)}</h5>
+                </div>
+
+                <button
+                  className="btn-order btn btn-warning w-100 fw-bold text-uppercase fs-4"
+                  onClick={() => navigate("/formcheckout")}
+                  disabled={cartItems.length === 0}
+                >
+                  Procedi all'ordine
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* colonna  */}

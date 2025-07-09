@@ -18,8 +18,8 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4 px-5">
+    <header className="header position-sticky top-0 z-3">
+      <nav className="navbar position- navbar-expand-lg navbar-dark bg-dark mb-4 px-5">
         <NavLink className="navbar-brand fw-bold fs-1 pb-2" to="/">
           Bool<span className="stop">Stop</span>
         </NavLink>

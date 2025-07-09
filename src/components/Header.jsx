@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 
 export default function Header() {
   const [search, setSearch] = useState("");
+  const [cartCount, setCartCount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -16,6 +17,27 @@ export default function Header() {
     }
     setSearch("");
   };
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const count = cart.reduce((acc, item) => acc + (item.amount || 1), 0);
+      setCartCount(count);
+    };
+
+    updateCartCount();
+
+    window.addEventListener("storage", updateCartCount);
+    document.addEventListener("visibilitychange", updateCartCount);
+    // Aggiorna anche su ogni click (utile per SPA senza context globale)
+    window.addEventListener("click", updateCartCount);
+
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+      document.removeEventListener("visibilitychange", updateCartCount);
+      window.removeEventListener("click", updateCartCount);
+    };
+  }, []);
 
   return (
     <header className="header position-sticky top-0 z-3">
@@ -50,7 +72,11 @@ export default function Header() {
               </NavLink>
             </li>
             <li className="nav-item position-relative">
-              <span className="badge-amount position-absolute  badge rounded-pill bg-danger"></span>
+              {cartCount > 0 && (
+                <span className="badge-amount position-absolute badge rounded-pill bg-danger">
+                  {cartCount}
+                </span>
+              )}
               <NavLink
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"

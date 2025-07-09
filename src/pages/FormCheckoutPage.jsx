@@ -76,7 +76,7 @@ export default function FormCheckoutPage() {
     return acc + (item.price * item.amount * discount) / 100;
   }, 0);
 
-  const discountFromCode = totalPrice * (valueDiscount / 100);
+  const discountFromCode = totalPrice * (1 - valueDiscount / 100);
 
   const totalDiscount = itemDiscount + discountFromCode;
 

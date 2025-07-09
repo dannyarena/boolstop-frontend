@@ -12,6 +12,7 @@ export default function OrderRecapPage() {
   }, []);
 
   const shippingCost = order.discountedPrice <= 100 ? 4.99 : 0;
+  const totalPrice = order.discountedPrice + shippingCost;
   return (
     <>
       <div className="container bg-light bg-gradient py-5 rounded-5 shadow-lg d-flex align-items-center justify-content-center flex-column">
@@ -64,10 +65,7 @@ export default function OrderRecapPage() {
           </p>
           {/* <p>Metodo di pagamento: {order.paymentMethod}</p> */}
           <p className="mt-3 fs-5">
-            Totale:{" "}
-            <span className="fw-bold">
-              € {order.discountedPrice.toFixed(2)}
-            </span>
+            Totale: <span className="fw-bold">€ {totalPrice}</span>
           </p>
         </div>
         <div className="d-flex justify-content-between align-items-center gap-3">

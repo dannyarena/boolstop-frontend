@@ -32,7 +32,9 @@ export default function FormCheckoutPage() {
     e.preventDefault();
     const dataToSend = { ...formData, videogames };
 
-    axios.post("http://localhost:3000/orders/addOrder", dataToSend).then((res) => console.log(res));
+    axios
+      .post("http://localhost:3000/orders/addOrder", dataToSend)
+      .then((res) => console.log(res));
 
     setFormData(initialFormData);
     localStorage.setItem(
@@ -64,7 +66,10 @@ export default function FormCheckoutPage() {
       .catch((err) => setMessageError(err.response.data.message));
   };
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * item.amount,
+    0
+  );
 
   const itemDiscount = cart.reduce((acc, item) => {
     const discount = item.discount_percentage || 0;
@@ -79,7 +84,7 @@ export default function FormCheckoutPage() {
 
   const discountedPrice = totalPrice - totalDiscount;
   const shippingCost = discountedPrice <= 100 ? 4.99 : 0;
-  const totalWithShipping = discountedPrice + shippingCost;
+  const totalWithShipping = totalPrice + shippingCost;
 
   return (
     <div className="checkout container py-5">
@@ -90,11 +95,15 @@ export default function FormCheckoutPage() {
             style={{
               border: "2px solid #ffcc00",
               borderRadius: 20,
-              background: "radial-gradient(circle at center, #111111dc 0%, #000 100%)",
+              background:
+                "radial-gradient(circle at center, #111111dc 0%, #000 100%)",
             }}
           >
             <div className="card-body" style={{ borderRadius: 20 }}>
-              <h2 className="mb-4 text-center" style={{ color: "#ffcc00", fontWeight: 700 }}>
+              <h2
+                className="mb-4 text-center"
+                style={{ color: "#ffcc00", fontWeight: 700 }}
+              >
                 Checkout
               </h2>
               <form onSubmit={handleFormSubmit}>
@@ -210,7 +219,10 @@ export default function FormCheckoutPage() {
                   Invia ordine
                 </button>
               </form>
-              <hr className="my-4" style={{ borderColor: "#ffcc00", opacity: 0.5 }} />
+              <hr
+                className="my-4"
+                style={{ borderColor: "#ffcc00", opacity: 0.5 }}
+              />
               <form onSubmit={handleValidationDiscount} className="mb-3">
                 <label
                   htmlFor="discount_code_name"
@@ -262,7 +274,9 @@ export default function FormCheckoutPage() {
               <h3 className="text-center summary-title">Riepilogo ordine</h3>
 
               {cart.length === 0 ? (
-                <div className="alert alert-warning text-center">Il carrello è vuoto.</div>
+                <div className="alert alert-warning text-center">
+                  Il carrello è vuoto.
+                </div>
               ) : (
                 <ul className="list-group mb-4">
                   {cart.map((item) => (
@@ -272,9 +286,13 @@ export default function FormCheckoutPage() {
                     >
                       <div className="me-2 flex-grow-1">
                         <div className="fw-semibold item-name">{item.name}</div>
-                        <span className="badge quantity-badge">Quantità: x{item.amount}</span>
+                        <span className="badge quantity-badge">
+                          Quantità: x{item.amount}
+                        </span>
                       </div>
-                      <span className="item-price">€ {(item.price * item.amount).toFixed(2)}</span>
+                      <span className="item-price">
+                        € {(item.price * item.amount).toFixed(2)}
+                      </span>
                     </li>
                   ))}
                   {totalDiscount > 0 && (
@@ -295,12 +313,18 @@ export default function FormCheckoutPage() {
                   )}
 
                   <li className="list-group-item d-flex justify-content-between shipping-item">
-                    <span>{shippingCost > 0 ? `Spedizione:` : `Spedizione gratuita`}</span>
-                    {shippingCost > 0 && <span>€ {shippingCost.toFixed(2)}</span>}
+                    <span>
+                      {shippingCost > 0 ? `Spedizione:` : `Spedizione gratuita`}
+                    </span>
+                    {shippingCost > 0 && (
+                      <span>€ {shippingCost.toFixed(2)}</span>
+                    )}
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center total-item">
                     <span>Totale</span>
-                    <span className="total-badge">€ {totalWithShipping.toFixed(2)}</span>
+                    <span className="total-badge">
+                      € {totalWithShipping.toFixed(2)}
+                    </span>
                   </li>
                 </ul>
               )}

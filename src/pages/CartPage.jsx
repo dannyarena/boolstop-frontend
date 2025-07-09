@@ -46,9 +46,7 @@ const CartPage = () => {
   };
 
   const handleRemove = (videogame_id) => {
-    const updatedCart = cartItems.filter(
-      (item) => item.videogame_id !== videogame_id
-    );
+    const updatedCart = cartItems.filter((item) => item.videogame_id !== videogame_id);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -83,31 +81,26 @@ const CartPage = () => {
         <hr />
 
         <div className="row">
-          <div className="col-9">
+          <div className="col-12 col-lg-9">
             {" "}
             {cartItems.length === 0 ? (
-              <p className="text-center fs-2 fw-bold mt-5">
-                Il carrello è vuoto.
-              </p>
+              <p className="text-center fs-2 fw-bold mt-5">Il carrello è vuoto.</p>
             ) : (
               <div className="row">
                 <div className="col-md-12">
                   <div className="row g-4">
                     {cartItems.map((item) => (
-                      <div
-                        className="col-md-6 col-xl-4"
-                        key={item.videogame_id}
-                      >
+                      <div className="col-md-6 col-xl-4" key={item.videogame_id}>
                         <div className="cart-card card bg-opacity-75 text-white shadow rounded-4 ">
                           <img
                             src={`${item.image}`}
                             alt={item.name}
-                            className="cart-card-img card-img-top rounded-top"
+                            className="cart-card-img card-img-top"
                             style={{ height: "200px", objectFit: "contain" }}
                           />
                           <div className="card-body d-flex flex-column justify-content-between">
                             <div>
-                              <h2 className="card-title text-warning text-center">
+                              <h2 className="card-title text-warning text-center fs-3">
                                 {item.name}
                               </h2>
                               {item.discount_percentage ? (
@@ -122,34 +115,27 @@ const CartPage = () => {
                                   </p>
                                 </>
                               ) : (
-                                <p className="mb-2 fs-3 text-center">
+                                <p className="mb-2 fs-2 text-center text-success fw-bold">
                                   € {item.price}
                                 </p>
                               )}
-                              <p className="mb-3 fs-4">
-                                Quantità: {item.amount}
-                              </p>
                             </div>
-
                             <div className="d-flex justify-content-between align-items-center">
                               <button
                                 className="cart-add-remove btn btn-success fw-bold"
-                                onClick={() =>
-                                  handleIncrease(item.videogame_id)
-                                }
+                                onClick={() => handleIncrease(item.videogame_id)}
                               >
                                 +
                               </button>
+                              <span className="px-3 py-1 rounded fw-bold fs-4">{item.amount}</span>
                               <button
                                 className="cart-add-remove btn btn-success fw-bold"
-                                onClick={() =>
-                                  handleDecrease(item.videogame_id)
-                                }
+                                onClick={() => handleDecrease(item.videogame_id)}
                               >
                                 -
                               </button>
                               <button
-                                className="cart-remove btn btn-danger fw-bold"
+                                className="cart-remove btn btn-danger fw-bold ms-2"
                                 onClick={() => handleRemove(item.videogame_id)}
                               >
                                 Rimuovi
@@ -164,42 +150,40 @@ const CartPage = () => {
               </div>
             )}
           </div>
-          <div className="col-3">
+          <div className="col-12 col-lg-3">
             <div
               className="cart-recap bg-opacity-75 text-white rounded-4 shadow p-4 sticky-top my-5"
               style={{ top: "100px" }}
             >
-              <h4 className="text-warning mb-4 text-center">
-                Riepilogo Ordine
-              </h4>
+              <h4 className="text-warning mb-4 text-center fs-2 fw-bold">Riepilogo Ordine</h4>
 
               {totalDiscount ? (
-                <div className="d-flex justify-content-between mb-3 fs-3">
+                <div className="d-flex justify-content-between align-items-center mb-3 fs-4">
                   <span>Sconto Totale:</span>
-                  <span className="text-success">
-                    - € {totalDiscount.toFixed(2)}
-                  </span>
+                  <span className="text-success fs-3 fw-bold">- € {totalDiscount.toFixed(2)}</span>
                 </div>
               ) : null}
 
-              <div className="d-flex justify-content-between mb-3 fs-3">
-                <span>Spese di spedizione:</span>
-                <span>
-                  {isFreeShippingCost
-                    ? "Spedizione gratuita"
-                    : `${finalShippingCost.toFixed(2)}€`}
-                </span>
-              </div>
+              {isFreeShippingCost ? (
+                <div className="d-flex justify-content-center align-items-center fs-4">
+                  <p className="text-success fw-bold">Spedizione gratuita</p>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-between fs-4 py-2">
+                  <span>Spese di spedizione:</span>
+                  <span>€ {finalShippingCost.toFixed(2)}</span>
+                </div>
+              )}
 
               <hr className="border-light" />
 
               <div className="total-cart d-flex justify-content-between align-items-center mb-4">
                 <strong>Totale:</strong>
-                <h5 className="text-warning fs-2">€ {finalPrice.toFixed(2)}</h5>
+                <h5 className="text-warning fs-1 fw-bold">€ {finalPrice.toFixed(2)}</h5>
               </div>
 
               <button
-                className="btn-order btn btn-warning w-100 fw-bold text-uppercase fs-3"
+                className="btn-order btn btn-warning w-100 fw-bold text-uppercase fs-4"
                 onClick={() => navigate("/formcheckout")}
                 disabled={cartItems.length === 0}
               >

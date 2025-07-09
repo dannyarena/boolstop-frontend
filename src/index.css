@@ -27,6 +27,7 @@
   background-image: url("/img/ddrfu5v-8497eeac-ad03-4abf-957a-63159599231e.jpg");
   background-position: center;
   background-size: cover;
+  filter: brightness(1.1) saturate(1.2);
 }
 .linkJumbo {
   font-size: 50px;
@@ -42,7 +43,20 @@
 }
 
 body {
-  background-image: url("/img/1000_F_524741041_RBfJBzahjDcEHI0bG3Azw2225SoQfNOh.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url("/img/1000_F_524741041_RBfJBzahjDcEHI0bG3Azw2225SoQfNOh.jpg");
+  margin: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
 }
 
 .div-platforms:hover {
@@ -61,8 +75,12 @@ body {
 }
 
 .link-platforms i {
-  font-size: 3rem;
-  color: rgb(255, 255, 255);
+  font-size: 3.5rem;
+  color: #fac803;
+}
+
+.div-platforms:hover i {
+  color: white;
 }
 
 .div-platforms {
@@ -72,8 +90,9 @@ body {
   justify-content: center;
   align-items: center;
   padding: 100px;
-  background-color: rgba(0, 0, 0, 0.88);
+  background: radial-gradient(circle at center, #111111dc 0%, #000 0%);
   border-radius: 50px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
 }
 .iconplat {
   font-size: 100px;
@@ -84,7 +103,7 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
 
   color: white;
   font-size: 5rem;
@@ -97,7 +116,7 @@ body {
   height: 650px;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: 0px 3px 10px 3px #fac803;
+  box-shadow: 0px 3px 10px 3px #ffca2c;
   transition: transform 0.3s;
 }
 
@@ -240,11 +259,12 @@ body {
 }
 
 .wrapper {
-  background-color: white;
-  height: 100%;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  background: radial-gradient(circle at center, #111111dc 0%, #000 100%);
+  border-radius: 20px;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.05);
+  min-height: 100vh;
+  padding: 0 2rem;
+  color: #fac803;
 }
 
 .addtocard {
@@ -256,7 +276,7 @@ body {
 }
 
 .discounted-games {
-  background-color: rgba(0, 0, 0, 0.88);
+  background: radial-gradient(circle at center, #111111dc 0%, #000 0%);
   border-radius: 50px;
 }
 
@@ -267,7 +287,7 @@ body {
 }
 
 .wishlist-container {
-  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  background: radial-gradient(circle at center, #111111dc 0%, #000 100%);
   border-radius: 20px;
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.05);
   min-height: 100vh;
@@ -294,11 +314,13 @@ body {
 }
 
 .wishlist-container,
-.videogames-container {
+.videogames-container,
+.wrapper {
   padding: 0 3rem;
   max-width: 1600px;
   margin: 0 auto;
   box-shadow: 0 0 50px rgba(0, 0, 0, 1.5);
+  filter: brightness(1.1) saturate(1.2);
 }
 
 .titleDetailGame {
@@ -319,4 +341,8 @@ body {
 }
 .btn:hover {
   box-shadow: 0px 0px 20px rgba(255, 202, 44, 0.5);
+}
+
+.promo-title {
+  color: #ffca2c;
 }

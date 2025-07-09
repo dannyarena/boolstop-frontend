@@ -28,13 +28,13 @@ export default function PromoCarousel({ discountedGames, wishlistIds, onToggleWi
 
   return (
     <>
-      <h2 className="text-center text-white fs-1 mb-4">
+      <h2 className="promo-title text-center fs-1 my-4 fw-bold">
         <i className="bi bi-fire text-danger"></i> OFFERTE DEL MOMENTO{" "}
         <i className="bi bi-fire text-danger"></i>
       </h2>
       <div id="carouselExampleIndicators" className="carousel slide">
         {/* Indicatori */}
-        <ol className="carousel-indicators d-flex justify-content-center p-0 mb-2">
+        <ol className="carousel-indicators d-flex justify-content-center p-0 mb-3">
           {discountedGames.map((_, i) => (
             <li
               key={i}

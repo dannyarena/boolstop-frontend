@@ -41,7 +41,7 @@ export default function Homepage() {
       <div className="wrapper-homepage vh-100">
         <div className="jumbotron-container d-flex justify-content-center align-items-center">
           <div className="jumbotron">
-            <div className="logobool">
+            <div className="logobool p-5">
               <h1 className="display-1 text-center fw-bold ">
                 BOOL<span className="text-warning">STOP</span>
               </h1>

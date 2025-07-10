@@ -24,10 +24,7 @@ export default function CartModalComponent() {
     };
   }, []);
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.amount,
-    0
-  );
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
   console.log(cartItems);
 
   return (
@@ -56,13 +53,15 @@ export default function CartModalComponent() {
                 {cartItems.map((item) => (
                   <li key={item.videogame_id}>
                     {item.name} -{" "}
-                    <span className=" text-danger text-decoration-line-through">
-                      {item.original_price}
-                    </span>{" "}
-                    - <span className="text-success">{item.price}</span> &euro;{" "}
-                    <span className="badge bg-secondary ms-2 ">
-                      X{item.amount}
+                    {item.original_price > item.price && (
+                      <span className="text-danger text-decoration-line-through me-1">
+                        {item.original_price.toFixed(2)} &euro;
+                      </span>
+                    )}
+                    <span className="text-success fw-bold me-1">
+                      {item.price.toFixed(2)} &euro;
                     </span>
+                    <span className="badge bg-secondary ms-2">X{item.amount}</span>
                   </li>
                 ))}
               </ul>
@@ -76,11 +75,7 @@ export default function CartModalComponent() {
               )}
             </div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                 Close
               </button>
 

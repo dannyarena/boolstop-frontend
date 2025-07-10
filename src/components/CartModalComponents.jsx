@@ -24,6 +24,10 @@ export default function CartModalComponent() {
     };
   }, []);
 
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.amount,
+    0
+  );
   console.log(cartItems);
 
   return (
@@ -62,6 +66,14 @@ export default function CartModalComponent() {
                   </li>
                 ))}
               </ul>
+              {cartItems.length > 0 ? (
+                <div className="d-flex justify-content-between">
+                  <span className="fw-bold">Totale:</span>
+                  <span className="text-success fs-5">{totalPrice} &euro;</span>
+                </div>
+              ) : (
+                <p className="text-center text-muted">Il carrello è vuoto</p>
+              )}
             </div>
             <div className="modal-footer">
               <button

@@ -69,7 +69,7 @@ export default function CartModalComponent() {
               {cartItems.length > 0 ? (
                 <div className="d-flex justify-content-between">
                   <span className="fw-bold">Totale:</span>
-                  <span className="text-success fs-5">{totalPrice} &euro;</span>
+                  <span className=" fs-5">{totalPrice.toFixed(2)} &euro;</span>
                 </div>
               ) : (
                 <p className="text-center text-muted">Il carrello è vuoto</p>

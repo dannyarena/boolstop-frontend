@@ -20,6 +20,7 @@ export default function FormCheckoutPage() {
   const [formData, setFormData] = useState(initialFormData);
   const [priceDiscounted, setPriceDiscounted] = useState(0);
   const [valueDiscount, setValueDiscount] = useState(0);
+  const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState("");
 
   const navigate = useNavigate();
@@ -62,8 +63,13 @@ export default function FormCheckoutPage() {
       .post("http://localhost:3000/orders/validate-discount", dataDiscount)
       .then((res) => {
         setValueDiscount(res.data.discount_value);
+        setMessage(res.data.message);
+        setMessageError("");
       })
-      .catch((err) => setMessageError(err.response.data.message));
+      .catch((err) => {
+        setMessageError(err.response.data.message);
+        setMessage("");
+      });
   };
 
   const totalPrice = cart.reduce(
@@ -349,6 +355,11 @@ export default function FormCheckoutPage() {
                 {messageError && (
                   <div className="alert alert-danger mt-2" role="alert">
                     {messageError}
+                  </div>
+                )}
+                {message && (
+                  <div className="alert alert-success mt-2" role="alert">
+                    {message}
                   </div>
                 )}
               </form>

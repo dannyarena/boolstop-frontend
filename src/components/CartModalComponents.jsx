@@ -51,7 +51,11 @@ export default function CartModalComponent() {
               <ul>
                 {cartItems.map((item) => (
                   <li key={item.videogame_id}>
-                    {item.name} - {item.price} &euro;{" "}
+                    {item.name} -{" "}
+                    <span className=" text-danger text-decoration-line-through">
+                      {item.original_price}
+                    </span>{" "}
+                    - <span className="text-success">{item.price}</span> &euro;{" "}
                     <span className="badge bg-secondary ms-2 ">
                       X{item.amount}
                     </span>

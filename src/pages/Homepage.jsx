@@ -38,7 +38,7 @@ export default function Homepage() {
 
   return (
     <>
-      <div className="wrapper-homepage vh-100">
+      <div className="wrapper-homepage">
         <div className="jumbotron-container d-flex justify-content-center align-items-center">
           <div className="jumbotron">
             <div className="logobool p-5">
@@ -62,7 +62,7 @@ export default function Homepage() {
               </PlatformsLinkComponent>
             ))}
           </section>
-          <section className="discounted-games container mt-5 p-4">
+          <section className="discounted-games container mt-5 mb-5 p-4">
             <PromoCarousel
               discountedGames={discountedGames}
               wishlistIds={wishlistIds}
